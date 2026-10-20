@@ -1,0 +1,686 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>E-TMP Kesenden Cirebon</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: hero senja (teks + denah nisan yang bisa dilipat), pita fakta mega mendung, profil video, data pahlawan lipat, layanan berformulir, agenda, kunjungan, rekap admin. */
+:root{
+  --bg:#eef0ec; --surface:#f8f9f6; --fg:#16231c; --muted:#56655c; --line:#d2d8d0;
+  --ground:#0b130f; --flag:#b3262c; --flag-soft:#f4dcdc; --ok:#1f6b45; --ok-soft:#dcefe3;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Public Sans","Segoe UI",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --gut:max(16px,env(safe-area-inset-left,0px));
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1713; --surface:#16211b; --fg:#e6ebe4; --muted:#9aa89f; --line:#2a3a31;
+  --ground:#070c09; --flag:#e0575c; --flag-soft:#3a1c1e; --ok:#6fd09b; --ok-soft:#14301f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1713; --surface:#16211b; --fg:#e6ebe4; --muted:#9aa89f; --line:#2a3a31;
+  --ground:#070c09; --flag:#e0575c; --flag-soft:#3a1c1e; --ok:#6fd09b; --ok-soft:#14301f; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--f-body);padding-block:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body.lock{overflow:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+.wrap{max-width:1100px;margin-inline:auto;position:relative;z-index:2}
+h1,h2,h3{font-family:var(--f-display);line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,4.5vw,2.5rem);font-weight:700;letter-spacing:-.02em}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0}
+a{color:inherit}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--flag);outline-offset:2px}
+.eyebrow{font:500 .75rem var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--flag);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:12px;background:linear-gradient(var(--flag) 50%,#f6efe6 50%);outline:1px solid var(--line);border-radius:1px;flex:none}
+
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:calc(-1*var(--gut));padding-inline:var(--gut)}
+.bar .wrap{display:flex;align-items:center;gap:16px;height:56px}
+.brand{font:800 1.1rem var(--f-display);text-decoration:none;letter-spacing:-.01em;white-space:nowrap}
+.brand span{color:var(--flag)}
+nav{display:flex;gap:4px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{padding:8px 12px;border-radius:999px;text-decoration:none;font-weight:500;font-size:.9rem;color:var(--muted);white-space:nowrap}
+nav a:hover{color:var(--fg);background:var(--surface)}
+.theme{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;width:38px;height:38px;cursor:pointer;font-size:1rem;flex:none}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:10px;font-weight:600;text-decoration:none;border:1.5px solid var(--fg);cursor:pointer;font-size:1rem;background:transparent;color:var(--fg)}
+.btn.primary{background:var(--flag);border-color:var(--flag);color:#fff}
+.btn.primary:hover{filter:brightness(1.1)}
+.btn.ghost:hover{background:var(--surface)}
+.btn.sm{padding:8px 14px;font-size:.88rem;border-radius:8px}
+.btn[disabled]{opacity:.55;cursor:wait}
+
+/* hero senja */
+.hero{position:relative;overflow:hidden;color:#f6efe6;margin-inline:calc(-1*var(--gut));
+  background:linear-gradient(180deg,#09111f 0%,#16203a 28%,#3b2f55 52%,#9c4350 74%,#e08a4c 100%)}
+.hero-in{position:relative;z-index:2;padding-inline:var(--gut);padding-block:clamp(40px,8vw,84px) clamp(8px,3vw,28px)}
+.hero-in .wrap{display:grid;gap:32px;grid-template-columns:minmax(0,1fr);align-items:start}
+@media(min-width:920px){.hero-in .wrap{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}}
+#fx{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.hero .eyebrow{color:#ffb98a}
+.hero h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:800;letter-spacing:-.035em;margin-block:14px 18px;text-shadow:0 2px 30px rgba(9,17,31,.6)}
+.hero h1 em{font-style:normal;color:#ffb98a}
+.lead{font-size:1.1rem;color:rgba(246,239,230,.84);max-width:56ch}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero .btn.primary{background:#d6353b;border-color:#d6353b}
+.hero .btn.ghost{color:#f6efe6;border-color:rgba(246,239,230,.7)}
+.hero .btn.ghost:hover{background:rgba(246,239,230,.12)}
+
+.field{background:rgba(9,17,31,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(246,239,230,.2);border-radius:16px;padding:14px 16px;min-width:0}
+.acc-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.acc-head b{font:500 .78rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase}
+.tog{display:inline-flex;align-items:center;gap:8px;border:1px solid currentColor;background:transparent;color:inherit;border-radius:999px;padding:7px 14px;font-size:.85rem;font-weight:600;cursor:pointer;flex:none}
+.tog::after{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translate(-2px,-2px);transition:transform .2s}
+.tog[aria-expanded="true"]::after{transform:rotate(225deg) translate(-2px,-2px)}
+.field .tog{color:#f6efe6}
+.field-body{margin-top:14px;display:grid;gap:12px}
+.bchips{display:flex;flex-wrap:wrap;gap:6px}
+.bchip{border:1px solid rgba(246,239,230,.35);background:transparent;color:#f6efe6;border-radius:999px;padding:5px 11px;font:500 .78rem var(--f-mono);cursor:pointer}
+.bchip small{opacity:.7;margin-left:5px;font-size:.72rem}
+.bchip[aria-pressed="true"]{background:#f6efe6;color:#16203a;border-color:#f6efe6}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font:400 .74rem var(--f-mono);color:rgba(246,239,230,.82)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend span::before{content:"";width:9px;height:12px;border-radius:50% 50% 1px 1px/38% 38% 1px 1px;background:var(--c)}
+.stone-wrap{display:grid;gap:16px;max-height:min(44vh,400px);overflow-y:auto;overscroll-behavior:contain;padding-right:4px}
+.grp-h{display:flex;justify-content:space-between;gap:10px;font:500 .74rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(246,239,230,.88);margin-bottom:6px}
+.stones{display:grid;grid-template-columns:repeat(auto-fill,minmax(15px,1fr));gap:4px}
+.stones button{display:block;aspect-ratio:3/4;border:0;padding:0;cursor:pointer;border-radius:50% 50% 1px 1px/38% 38% 1px 1px;background:rgba(246,239,230,.32);transition:transform .15s;animation:rise .5s both}
+.stones button[data-s="g"]{background:#ff8a7a}
+.stones button[data-s="w"]{background:#f3ead9}
+.stones button[data-s="u"]{background:rgba(246,239,230,.32)}
+.stones button:hover{transform:translateY(-3px)}
+.stones button.hit{outline:2px solid #7fd6ff;outline-offset:1px}
+.stones button.sel{background:#ffd07a;box-shadow:0 0 0 2px #ffd07a,0 0 14px 2px rgba(255,208,122,.8);transform:translateY(-3px)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}}
+.jump{display:grid;gap:6px}
+.jump input{width:100%;padding:9px 12px;border-radius:8px;border:1px solid rgba(246,239,230,.35);background:rgba(246,239,230,.08);color:#f6efe6;font:inherit}
+.jump input::placeholder{color:rgba(246,239,230,.6)}
+#dmsg{font:400 .74rem var(--f-mono);color:rgba(246,239,230,.82);min-height:1em}
+.src{display:block;font:400 .78rem var(--f-mono);color:var(--muted);margin-top:6px}
+.detail{border-radius:12px;background:rgba(246,239,230,.1);padding:12px 14px;font-size:.95rem;min-height:74px}
+.detail .nm{font:700 1.15rem var(--f-display);display:block}
+.detail .mt{font:400 .78rem var(--f-mono);opacity:.82;display:block;margin-top:4px}
+.detail .hint{opacity:.8}
+
+.land{position:relative;z-index:2;display:block;width:100%;height:clamp(170px,26vw,380px);margin-top:-1px}
+.pennant{transform-origin:0 0;animation:wave 3.4s ease-in-out infinite}
+@keyframes wave{50%{transform:skewY(5deg) scaleX(.94)}}
+
+.facts{position:relative;overflow:hidden;background:var(--ground);color:#eef0ec;padding-block:40px;margin-inline:calc(-1*var(--gut));padding-inline:var(--gut)}
+.facts .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
+.fact b{display:block;font:800 clamp(2rem,5vw,3rem) var(--f-display);letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:#ffd7a0}
+.fact span{font-size:.92rem;opacity:.82}
+
+.mm{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;-webkit-mask-image:linear-gradient(to top,#000,transparent 70%);mask-image:linear-gradient(to top,#000,transparent 70%)}
+
+section.blk{position:relative;overflow:hidden;padding-block:clamp(48px,8vw,88px)}
+section.alt{background:var(--surface);margin-inline:calc(-1*var(--gut));padding-inline:var(--gut)}
+.sec-head{display:grid;gap:10px;margin-bottom:28px;max-width:60ch}
+.sec-head p{color:var(--muted)}
+
+/* profil video */
+.profil{display:grid;gap:28px;grid-template-columns:minmax(0,1fr);align-items:center}
+@media(min-width:860px){.profil{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}}
+.video{position:relative;display:grid;place-items:center;aspect-ratio:16/9;border-radius:18px;overflow:hidden;text-decoration:none;color:#f6efe6;background:linear-gradient(180deg,#09111f 0%,#3b2f55 55%,#c2603f 100%);border:1px solid var(--line);max-width:100%}
+.video::after{content:"";position:absolute;inset:auto 0 0;height:34%;background:linear-gradient(#0b130f00,#0b130f)}
+.video .play{position:relative;z-index:2;width:78px;height:78px;border-radius:50%;background:#d6353b;display:grid;place-items:center;box-shadow:0 0 0 10px rgba(214,53,59,.25);transition:transform .2s}
+.video:hover .play{transform:scale(1.08)}
+.video .play::before{content:"";margin-left:6px;border-left:22px solid #fff;border-top:13px solid transparent;border-bottom:13px solid transparent}
+.video .cap{position:absolute;z-index:2;left:16px;bottom:14px;right:16px;font:500 .78rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+/* data pahlawan */
+.panel{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px 18px;min-width:0}
+.panel .tog{color:var(--fg)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{font:500 .78rem var(--f-mono);padding:5px 11px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.panel-body{margin-top:16px}
+.tools{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-bottom:14px}
+@media(min-width:720px){.tools{grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr)}}
+label.l{display:grid;gap:6px;font:500 .78rem var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;min-width:0}
+input,select,textarea{font:inherit;color:var(--fg);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;width:100%;min-width:0;text-transform:none;letter-spacing:0}
+textarea{min-height:88px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--flag)}
+.note{display:inline-block;font:500 .75rem var(--f-mono);background:var(--flag-soft);color:var(--flag);padding:5px 10px;border-radius:6px;margin-bottom:14px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+table{border-collapse:collapse;width:100%;min-width:780px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);font-size:.93rem}
+th{font:500 .72rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.m{font-family:var(--f-mono);font-size:.85rem;font-variant-numeric:tabular-nums}
+.tag{font:500 .72rem var(--f-mono);padding:3px 9px;border-radius:99px;border:1px solid var(--line)}
+.tag.v{border-color:var(--flag);color:var(--flag)}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;flex-wrap:wrap;font-size:.9rem;color:var(--muted)}
+.pager div{display:flex;gap:8px}
+
+/* layanan */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+button.card{text-align:left;color:inherit;font:inherit;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;gap:10px;align-content:start;min-width:0;cursor:pointer;transition:transform .2s,border-color .2s}
+button.card:hover{transform:translateY(-4px);border-color:var(--flag)}
+button.card p{color:var(--muted);font-size:.95rem}
+button.card .go{font:600 .85rem var(--f-body);color:var(--flag)}
+.ic{width:42px;height:42px;border-radius:10px;background:var(--ground);color:#ffd7a0;display:grid;place-items:center;font:700 1rem var(--f-display)}
+
+.cal{display:grid;gap:0;border-top:1.5px solid var(--fg)}
+.row{display:grid;grid-template-columns:110px minmax(0,1fr);gap:20px;padding:22px 0;border-bottom:1px solid var(--line)}
+.row .d{font:800 2.4rem/1 var(--f-display);letter-spacing:-.03em}
+.row .d small{display:block;font:500 .75rem var(--f-mono);letter-spacing:.1em;color:var(--flag);margin-top:6px;text-transform:uppercase}
+.row p{color:var(--muted);margin-top:4px}
+@media(max-width:480px){.row{grid-template-columns:1fr;gap:6px}}
+
+.visit{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+dl{margin:0;display:grid;gap:14px}
+dl div{display:grid;gap:2px;border-bottom:1px solid var(--line);padding-bottom:12px}
+dt{font:500 .72rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+dd{margin:0}
+
+/* formulir */
+.form{display:grid;gap:14px}
+.form .two{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+fieldset{border:1.5px solid var(--line);border-radius:10px;padding:10px 14px 12px;margin:0;min-width:0}
+legend{font:500 .78rem var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding-inline:6px}
+.chk{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:.95rem}
+.chk input{width:18px;height:18px;padding:0;accent-color:var(--flag)}
+.err{color:var(--flag);font-size:.88rem}
+.res{border-radius:12px;padding:16px 18px;display:grid;gap:10px}
+.res.good{background:var(--ok-soft)}
+.res.bad{background:var(--flag-soft)}
+.res b{font-family:var(--f-display);font-size:1.15rem}
+.res pre{margin:0;white-space:pre-wrap;word-break:break-word;font:400 .85rem/1.5 var(--f-mono);background:var(--bg);border-radius:8px;padding:10px 12px}
+.res .code{font:700 1.3rem var(--f-mono);letter-spacing:.06em}
+
+.modal{position:fixed;inset:0;z-index:50;background:rgba(5,10,8,.7);display:grid;place-items:center;padding:16px;overflow-y:auto}
+.modal[hidden]{display:none}
+.sheet{background:var(--bg);border-radius:18px;width:min(620px,100%);max-height:calc(100vh - 32px);overflow-y:auto;padding:24px;display:grid;gap:16px;border:1px solid var(--line)}
+.sheet-head{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.sheet-head p{color:var(--muted);font-size:.93rem;margin-top:6px}
+.x{border:1px solid var(--line);background:var(--surface);color:var(--fg);width:38px;height:38px;border-radius:50%;font-size:1.1rem;cursor:pointer;flex:none}
+
+footer{background:var(--ground);color:rgba(238,240,236,.75);padding-block:32px 48px;font-size:.88rem;margin-inline:calc(-1*var(--gut));padding-inline:var(--gut)}
+footer .wrap{display:grid;gap:8px}
+footer b{color:#ffd7a0}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="mmL" width="140" height="70" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke-width="1.3" style="stroke:var(--line)">
+        <path d="M0 70 C0 40 30 36 40 52 C50 28 90 30 92 56 C110 44 140 52 140 70"/>
+        <path d="M14 70 C14 52 32 50 40 60 C50 44 80 46 82 62 C96 54 126 58 126 70"/>
+        <path d="M28 70 C28 62 36 60 42 66 C50 58 68 60 70 68"/>
+      </g>
+    </pattern>
+    <pattern id="mmD" width="140" height="70" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke-width="1.3" stroke="rgba(255,215,160,.16)">
+        <path d="M0 70 C0 40 30 36 40 52 C50 28 90 30 92 56 C110 44 140 52 140 70"/>
+        <path d="M14 70 C14 52 32 50 40 60 C50 44 80 46 82 62 C96 54 126 58 126 70"/>
+        <path d="M28 70 C28 62 36 60 42 66 C50 58 68 60 70 68"/>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<header class="bar"><div class="wrap">
+  <a class="brand" href="#atas">E-TMP<span>.</span>Cirebon</a>
+  <nav aria-label="Menu utama">
+    <a href="#profil">Profil TMP</a><a href="#pahlawan">Data Pahlawan</a><a href="#layanan">Layanan</a><a href="#agenda">Agenda</a><a href="#kunjungan">Ziarah</a><a href="#rekap" id="nav-rekap" hidden>Rekap</a>
+  </nav>
+  <button class="theme" id="theme" aria-label="Ganti tema terang/gelap">◐</button>
+</div></header>
+
+<main id="atas">
+<section class="hero" id="hero">
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="hero-in"><div class="wrap">
+    <div>
+      <span class="eyebrow">Sistem Informasi Taman Makam Pahlawan</span>
+      <h1>Mengenang yang gugur, <em>mudah</em> diakses siapa saja.</h1>
+      <p class="lead">E-TMP memuat informasi Taman Makam Pahlawan Kesenden, Kota Cirebon: data pahlawan yang dimakamkan, layanan ziarah dan upacara, serta agenda peringatan nasional.</p>
+      <div class="cta"><a class="btn primary" href="#profil">Lihat profil TMP</a><a class="btn ghost" href="#kunjungan">Rencanakan ziarah</a></div>
+    </div>
+    <div class="field">
+      <div class="acc-head"><b>Denah nisan · 534 penghuni</b><button class="tog" id="tog-denah" aria-expanded="true" aria-controls="denah">Tutup</button></div>
+      <div class="field-body" id="denah">
+        <div class="bchips" id="bchips" role="group" aria-label="Pilih blok makam"></div>
+        <div class="legend" aria-label="Arti warna nisan"><span style="--c:#ff8a7a">Gugur</span><span style="--c:#f3ead9">Wafat</span><span style="--c:rgba(246,239,230,.4)">Belum tercatat</span></div>
+        <div class="stone-wrap" id="stones" role="group" aria-label="Denah nisan per blok. Klik nisan untuk melihat nama."></div>
+        <div class="jump"><input id="dsearch" type="search" placeholder="Cari nama di denah" autocomplete="off" aria-label="Cari nama di denah"><div id="dmsg" aria-live="polite"></div></div>
+        <div class="detail" id="detail" aria-live="polite"><span class="hint">Klik salah satu nisan untuk melihat nama, pangkat, dan keterangannya.</span></div>
+      </div>
+    </div>
+  </div></div>
+  <svg class="land" viewBox="0 0 1440 360" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs><radialGradient id="glow"><stop offset="0" stop-color="#ffd7a0" stop-opacity=".95"/><stop offset=".4" stop-color="#ff9a5a" stop-opacity=".45"/><stop offset="1" stop-color="#ff7a4a" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="1010" cy="250" r="260" fill="url(#glow)"/>
+    <circle cx="1010" cy="250" r="44" fill="#ffe3b3"/>
+    <path d="M0 250 C160 200 300 230 460 215 S760 170 940 215 S1260 190 1440 225 V360 H0Z" fill="#2b2a44" opacity=".92"/>
+    <path d="M0 290 C200 250 380 285 560 268 S900 245 1100 275 S1340 262 1440 280 V360 H0Z" fill="#17241f"/>
+    <g id="trees" fill="#0d1a14"></g>
+    <g transform="translate(720 0)" fill="#101d17">
+      <rect x="-36" y="300" width="72" height="22"/>
+      <rect x="-26" y="274" width="52" height="28"/>
+      <path d="M-10 276 L-6 132 L6 132 L10 276Z"/>
+      <path d="M-6 132 L0 106 L6 132Z"/>
+      <rect x="0" y="84" width="1.6" height="24"/>
+      <g class="pennant"><path d="M1.6 84 h28 v7 h-28z" fill="#d6353b"/><path d="M1.6 91 h28 v7 h-28z" fill="#f6efe6"/></g>
+    </g>
+    <path d="M0 318 C300 308 600 322 900 314 S1250 310 1440 318 V360 H0Z" fill="#0b130f"/>
+    <g id="stones2" fill="#0b130f"></g>
+  </svg>
+</section>
+
+<div class="facts">
+  <svg class="mm" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mmD)"/></svg>
+  <div class="wrap">
+    <div class="fact"><b>534</b><span>nama penghuni tercatat di daftar UPT TMP per 2020</span></div>
+    <div class="fact"><b>8</b><span>blok makam: A sampai E, Budha, Kristen, dan Bahagia</span></div>
+    <div class="fact"><b>2</b><span>upacara besar tiap tahun: 17 Agustus dan 10 November</span></div>
+    <div class="fact"><b>1974</b><span>tahun juru pelihara Nuryayi mulai merawat makam</span></div>
+    </div>
+  </div>
+</div>
+
+<section class="blk" id="profil"><div class="wrap">
+  <div class="profil">
+    <div class="sec-head" style="margin:0"><span class="eyebrow">Profil TMP</span><h2>Kenali Taman Makam Pahlawan Kesenden</h2><p>Tonton video profil TMP 2026 yang disiapkan pengelola. Video dibuka di Google Drive pada tab baru.</p>
+      <div class="cta" style="margin-top:8px"><a class="btn primary" href="https://drive.google.com/file/d/1xBddpoT75oqlDgEk08GkRq1c7tu0BpPl/view?usp=sharing" target="_blank" rel="noopener noreferrer">Putar video profil</a></div>
+    </div>
+    <a class="video" href="https://drive.google.com/file/d/1xBddpoT75oqlDgEk08GkRq1c7tu0BpPl/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Putar video Profil TMP 2026 di Google Drive">
+      <span class="play" aria-hidden="true"></span>
+      <span class="cap"><span>Profil TMP 2026</span><span>Video · Google Drive</span></span>
+    </a>
+  </div>
+</div></section>
+
+<section class="blk alt" id="pahlawan">
+  <svg class="mm" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mmL)"/></svg>
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Data pahlawan</span><h2>Cari nama, blok, dan keterangan</h2><p>Buka tabel untuk mencari. Tombol "Lihat nisan" di tiap baris menyorot nisannya di denah.</p></div>
+    <div class="panel">
+      <div class="acc-head"><div><h3>Tabel data pahlawan</h3><span class="src">Sumber: Daftar Penghuni TMPN/AMPN dan Taman Makam Bahagia Kesenden, UPT Taman Makam Pahlawan Kota Cirebon, per Januari 2020</span></div><button class="tog" id="tog-data" aria-expanded="false" aria-controls="data-body">Buka</button></div>
+      <div class="chips" id="chips"></div>
+      <div class="panel-body" id="data-body" hidden>
+        <div class="tools">
+          <label class="l" for="q">Cari<input id="q" type="search" placeholder="Nama, pangkat, atau kesatuan" autocomplete="off"></label>
+          <label class="l" for="blok">Blok<select id="blok"><option value="">Semua blok</option><option value="A">Blok A</option><option value="B">Blok B</option><option value="C">Blok C</option><option value="D">Blok D</option><option value="E">Blok E</option><option value="Budha">Blok Budha</option><option value="Kristen">Blok Kristen</option><option value="Bahagia">Blok Bahagia</option></select></label>
+          <label class="l" for="status">Keterangan<select id="status"><option value="">Semua</option><option value="g">Gugur</option><option value="w">Wafat</option><option value="u">Belum tercatat</option><option value="tak">Tak dikenal</option></select></label>
+        </div>
+        <div class="tbl"><table>
+          <thead><tr><th>No. makam</th><th>Nama</th><th>Pangkat</th><th>Kesatuan / jabatan</th><th>Gugur / wafat</th><th>Blok</th><th></th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table><div class="empty" id="empty" hidden>Tidak ada data yang cocok. Coba kata kunci lain.</div></div>
+        <div class="pager"><span id="count"></span><div><button class="btn ghost sm" id="prev">Sebelumnya</button><button class="btn ghost sm" id="next">Berikutnya</button></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="layanan"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Layanan</span><h2>Pilih layanan, isi formulirnya</h2><p>Klik salah satu layanan. Pengajuan Anda tersimpan dan Dinas Sosial menghubungi untuk konfirmasi.</p></div>
+  <div class="cards">
+    <button class="card" data-svc="ziarah"><div class="ic">Z</div><h3>Izin ziarah rombongan</h3><p>Sekolah, ormas, dan instansi mengajukan jadwal agar petugas dapat menyiapkan area makam.</p><span class="go">Isi formulir →</span></button>
+    <button class="card" data-svc="renungan"><div class="ic">R</div><h3>Renungan suci</h3><p>Izin kegiatan renungan suci malam peringatan kemerdekaan, termasuk koordinasi pengamanan dan penerangan.</p><span class="go">Isi formulir →</span></button>
+    <button class="card" data-svc="tabur"><div class="ic">T</div><h3>Tabur bunga Hari Pahlawan</h3><p>Pendaftaran peserta dan pembagian waktu tabur bunga pada 10 November.</p><span class="go">Isi formulir →</span></button>
+    <button class="card" data-svc="makam"><div class="ic">P</div><h3>Pengajuan pemakaman</h3><p>Ahli waris pejuang, veteran, atau perintis kemerdekaan mengajukan pemakaman di TMP.</p><span class="go">Isi formulir →</span></button>
+  </div>
+</div></section>
+
+<section class="blk alt" id="agenda">
+  <svg class="mm" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mmL)"/></svg>
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Agenda tahunan</span><h2>Dua tanggal yang menandai TMP</h2><p>TMP Kesenden menjadi lokasi seremonial setiap peringatan kemerdekaan dan Hari Pahlawan.</p></div>
+    <div class="cal">
+      <div class="row"><div class="d">17<small>Agustus</small></div><div><h3>Hari Kemerdekaan RI</h3><p>Upacara ziarah dan renungan suci untuk mengenang pejuang kemerdekaan.</p></div></div>
+      <div class="row"><div class="d">10<small>November</small></div><div><h3>Hari Pahlawan</h3><p>Upacara dan tabur bunga di makam para pahlawan oleh pemerintah, TNI/Polri, pelajar, dan masyarakat.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="kunjungan"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Ziarah</span><h2>Rencanakan ziarah</h2></div>
+  <div class="visit">
+    <dl>
+      <div><dt>Lokasi</dt><dd>Taman Makam Pahlawan Kesenden, Kelurahan Kesenden, Kecamatan Kejaksan, Kota Cirebon</dd></div>
+      <div><dt>Pengelola</dt><dd>Dinas Sosial Kota Cirebon bersama juru pelihara makam</dd></div>
+      <div><dt>Jam kunjungan</dt><dd>Diisi petugas</dd></div>
+      <div><dt>Kontak</dt><dd>Diisi petugas</dd></div>
+      <div><dt>Etika berziarah</dt><dd>Berpakaian sopan, tidak merusak nisan, membawa kembali sampah, dan menjaga ketenangan.</dd></div>
+    </dl>
+    <div id="kform"></div>
+  </div>
+</div></section>
+
+<section class="blk alt" id="rekap" hidden>
+  <svg class="mm" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mmL)"/></svg>
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Khusus petugas</span><h2>Rekap pengajuan</h2><p>Hanya terlihat oleh pengelola halaman. Unduh CSV lalu impor ke Google Sheet (File → Impor).</p></div>
+    <div class="panel">
+      <div class="acc-head"><div><h3 id="rk-title">Pengajuan masuk</h3></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary sm" id="csv">Unduh CSV</button><button class="tog" id="tog-rekap" aria-expanded="false" aria-controls="rekap-body">Buka</button></div></div>
+      <div class="panel-body" id="rekap-body" hidden>
+        <div class="tbl"><table>
+          <thead><tr><th>Waktu</th><th>Kode</th><th>Jenis</th><th>Nama</th><th>Kontak</th><th>Tanggal</th><th>Jumlah</th><th>Detail</th></tr></thead>
+          <tbody id="rk-rows"></tbody>
+        </table><div class="empty" id="rk-empty">Belum ada pengajuan.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="m-title">
+  <div class="sheet">
+    <div class="sheet-head"><div><h3 id="m-title"></h3><p id="m-desc"></p></div><button class="x" id="m-x" aria-label="Tutup formulir">✕</button></div>
+    <div id="m-body"></div>
+  </div>
+</div>
+
+<footer><div class="wrap">
+  <b>E-TMP Kesenden · Kota Cirebon</b>
+  <span>Nama penghuni bersumber dari daftar UPT Taman Makam Pahlawan Kota Cirebon per Januari 2020 dan perlu diperbarui berkala. Nama juru pelihara bersumber dari TIMES Indonesia (2020).</span>
+</div></footer>
+
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var NS='http://www.w3.org/2000/svg';
+  function $(id){return document.getElementById(id)}
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+
+  /* lanskap */
+  var trees=$('trees'),tp=[40,96,150,215,280,380,470,560,880,990,1120,1200,1262,1330,1396],th=[110,84,126,92,70,64,88,60,66,90,70,122,86,112,78];
+  tp.forEach(function(x,i){var h=th[i],w=h*.13,y=300-h,p=document.createElementNS(NS,'path');
+    p.setAttribute('d','M'+x+' 300 Q'+(x-w)+' '+(y+h*.55)+' '+x+' '+y+' Q'+(x+w)+' '+(y+h*.55)+' '+x+' 300Z');trees.appendChild(p)});
+  var dd='';for(var x=8;x<1440;x+=34){dd+='M'+x+' 324v-12a6 6 0 0 1 12 0v12z'}
+  for(var x2=20;x2<1440;x2+=46){dd+='M'+x2+' 352v-22a9 9 0 0 1 18 0v22z'}
+  var sp=document.createElementNS(NS,'path');sp.setAttribute('d',dd);$('stones2').appendChild(sp);
+
+  /* data penghuni TMP Kesenden: daftar UPT Taman Makam Pahlawan per Januari 2020 */
+  var RAW=[["A",1,"IMAM TAUHID","Sersan","Sie II Dam Slw","TNI-AD","12-11-1950","","islam"],["A",2,"SOETISNA B","Sersan","Anggota KMK","","24-07-1950","",""],["A",3,"SAKIRA","Serda","","Bn Slw","1950","",""],["A",4,"SOEMARSONO","AKP","","POLRI","1947","",""],["A",5,"PRIMA USMAN","","","Badan Pejuang","1947","",""],["A",6,"SAIDI/ SIDI","Kopda","","Bn. Slw","01-03-1950","",""],["A",7,"SOEMARSONO","Ajun Polisi (AP)","Anggota Pol. MB","POLRI","1947","",""],["A",8,"TARMIYAN","","","Badan Pejuang","1947","",""],["A",9,"SOEDIRJA","Pratu","","TNI-AD","03-11-1950","",""],["A",10,"SANJOYO. M","Letda","Anggota CPM Jakarta","TNI-AD","1950","",""],["A",11,"DIDI","","","Badan Pejuang","1947","",""],["A",12,"MEMED (3 Orang)","","","Jpi/ Trip","1947","",""],["A",13,"TAK DIKENAL","","Anggota","Badan Pejuang","1947","",""],["A",14,"BAGONG","Letda","Anggota","TNI-AD","1947","",""],["A",15,"SUKARJOI","Letda","Anggota","TNI-AD","10-02-1950","",""],["A",16,"MARJONO","Peltu","","TNI-AD","1947","",""],["A",17,"Rd. S.SOEJONO","Letda","","TNI-AD","1949","",""],["A",18,"SUKARNA DISASTRA","Prajurit","Anggota","TNI-AD","1947","",""],["A",19,"R.WIRIATMAJA","","","","","",""],["A",20,"TAK DIKENAL","","","","","",""],["A",21,"KADIMAN","","","","","",""],["A",22,"SURATNO","","","","","",""],["A",23,"MUKRI","","","","","",""],["A",24,"KARPIN","","","","","",""],["A",25,"H. UCU MAHMUD","","","","","",""],["A",26,"ALIFUDIN (2 ORANG)","","","","","",""],["A",27,"TAK DIKENAL","","","","","",""],["A",28,"SH. BASIR","","","","","",""],["A",29,"TAK DIKENAL","","","","","",""],["A",30,"TAK DIKENAL","","","","","",""],["A",31,"TAK DIKENAL","","","","","",""],["A",32,"SOEWONDO","","","","","",""],["A",33,"M.A HALBIS LOEBIS","","","","","",""],["A",34,"TAK DIKENAL","","","","","",""],["A",35,"TAK DIKENAL","","","","","",""],["A",36,"SALEH (6 ORANG)","","","","","",""],["A",37,"SAMADIKUN","","","","","",""],["A",38,"A. BARAK","","","","","",""],["A",39,"SUWITO","","","","","",""],["A",40,"TAK DIKENAL (6 ORANG)","","","","","",""],["A",41,"S.SOEROPARTO","","","","","",""],["A",42,"TAK DIKENAL (9 ORG)","","","","","",""],["A",43,"TAK DIKENAL","","","","","",""],["A",44,"MOH. SANI","","","","","",""],["A",45,"ISMAIL ZAIN","","","","","",""],["A",46,"RIASWAT","","","","","",""],["A",47,"TIWUR","","","","","",""],["A",48,"SARIM","","","","","",""],["A",49,"SOETAWIGUNA","","","","","",""],["A",50,"MURSUNGGGIH","","","","","",""],["A",51,"SUBUH","","","","","",""],["A",52,"R. MOH SALEH ARGAWINATA","","","","","",""],["A",53,"TJOTJO","","","","","",""],["A",54,"BACHRUM","","","","","",""],["A",55,"YOESOEP","","","","","",""],["A",56,"A. BARAK","","","","","",""],["A",57,"A. RAKIB KASTOR","","","","","",""],["A",58,"SELAMET","","","","","",""],["A",59,"MUCHALI","","","","","",""],["A",60,"TAK DIKENAL","","","","","",""],["A",61,"IDA SUKARDI","","","","","",""],["A",62,"SEMERU","","","","","",""],["A",63,"SUTARJA","","","","","",""],["A",64,"SLAMET","","","","","",""],["A",65,"INO KERTABRATA","","","","","",""],["A",66,"MUSTOFA","","","","","",""],["A",67,"TAK DIKENAL (13 ORG)","","","","","",""],["B",1,"IJONG RASID","","","","","",""],["B",2,"SIROJANG","","","","","",""],["B",3,"DJEMBAR","","","","","",""],["B",4,"MOH CATUH","","","","","",""],["B",5,"A. BAKIM","","","","","",""],["B",6,"TARKO","","","","","",""],["B",7,"SALEH","","","","","",""],["B",8,"DJUKI","","","","","",""],["B",9,"SASTRADIHARJA","","","","","",""],["B",10,"KAMALI","","","","","",""],["B",11,"SIMON","","","","","",""],["B",12,"SURHANA","","","","","",""],["B",13,"RUSDI","","","","","",""],["B",14,"ACHMID","","","","","",""],["B",15,"SIJAM","","","","","",""],["B",16,"SARMA","","","","","",""],["B",17,"M. DJAJULI","","","","","",""],["B",18,"DANA","","","","","",""],["B",19,"M. MADRAI","","","","","",""],["B",20,"KARIMAN","","","","","",""],["B",21,"KADMA","","","","","",""],["B",22,"AMNA","","","","","",""],["B",23,"ITEM","","","","","",""],["B",24,"ABU BAKAR","","","","","",""],["B",25,"DARMAD","","","","","",""],["B",26,"H.A. DJADDJULI","","","","","",""],["B",27,"SURKAT","","","","","",""],["B",28,"SUHAEMI","","","","","",""],["B",29,"RAMJA","","","","","",""],["B",30,"SUGIMAN","","","","","",""],["B",31,"SUWARNO","","","","","",""],["B",32,"Rd. SUROTO","","","","","",""],["B",33,"SUPENGAT","","","","","",""],["B",34,"MISNA","","","","","",""],["B",35,"IDIN","","","","","",""],["B",36,"MARJIUN","","","","","",""],["B",37,"SAJID","","","","","",""],["B",38,"MOH. TAHURI","","","","","",""],["B",39,"AMSAR A","","","","","",""],["B",40,"ROYNITI KUSUMA","","","","","",""],["B",41,"ENJEN","","","","","",""],["B",42,"ARA","","","","","",""],["B",43,"ADANG","","","","","",""],["B",44,"SAMAN","","","","","",""],["B",45,"SUKARDI","","","","","",""],["B",46,"MADI","","","","","",""],["B",47,"SUMITRA","","","","","",""],["B",48,"DJUAHMAN","","","","","",""],["B",49,"SUWARNO","","","","","",""],["B",50,"RARAT","","","","","",""],["B",51,"S.S. PURNOMO","","","","","",""],["B",52,"MUNASIR","","","","","",""],["B",53,"KUSNAN","","","","","",""],["B",54,"KUSNUN","","","","","",""],["B",55,"M. SURYADI","","","","","",""],["B",56,"MUHJI","","","","","",""],["B",57,"SAMIDIN","","","","","",""],["B",58,"SUGIMIN","","","","","",""],["B",59,"NASIRUDIN","","","","","",""],["B",60,"ULE SULAEMAN","","","","","",""],["B",61,"ASTRA","","","","","",""],["B",62,"AJAN","","","","","",""],["B",63,"NGARIP","","","","","",""],["B",64,"KASTAHAR","","","","","",""],["B",65,"RB. SUHARDI","","","","","",""],["B",66,"KARTOMO","","","","","",""],["B",67,"HAMDANI","","","","","",""],["B",68,"A. YOESOEP","","","","","",""],["B",69,"E. MULYONO","","","","","",""],["B",70,"TAK DIKENAL","","","","","",""],["B",71,"AMIR RAHMAN","","","","","",""],["B",72,"MUHDANI","","","","","",""],["B",73,"M. SUKENDRO","","","","","",""],["B",74,"R.E. JAYADI","","","","","",""],["B",75,"M. CHAYAT","","","","","",""],["B",76,"MAD. TOIP","","","","","",""],["B",77,"SUNARYA","","","","","",""],["B",78,"R. ARIFIN","","","","","",""],["B",79,"SUPARDHI","","","","","",""],["B",80,"SUKOYO","","","","","",""],["B",81,"A. RAJAK","","","","","",""],["B",82,"SUPARWADI","","","","","",""],["B",83,"PAAT SUPAAT","","","","","",""],["B",84,"S. WASJI","","","","","",""],["B",85,"AGUS AHMAD","","","","","",""],["B",86,"AKIS YUNASA","","","","","",""],["B",87,"SETIJARJO","","","","","",""],["B",88,"MAMIK SEAMET","","","","","",""],["B",89,"ANAS EDY","","","","","",""],["B",90,"A. NASUHA","","","","","",""],["B",91,"SAFUAN BA","","","","","",""],["B",92,"TAHIR","","","","","",""],["B",93,"O. SUMPENA","","","","","",""],["B",94,"R. SUYATIN","","","","","",""],["B",95,"M. SAMIN","","","","","",""],["B",96,"AL TARUTAKA","","","","","",""],["B",97,"HAZAMA","","","","","",""],["B",98,"MAHYUDIN","","","","","",""],["B",99,"SULAEMAN","","","","","",""],["B",100,"D. ATIM","","","","","",""],["B",101,"R.I. RUHYANA","","","","","",""],["B",102,"OJO SUHENDAR","","","","","",""],["B",103,"WIHANDA","","","","","",""],["B",104,"IBRA","","","","","",""],["B",105,"IMAM SUYADI","","","","","",""],["B",106,"E. SOEMANTRI","","","","","",""],["B",107,"SUBANDI","","","","","",""],["B",108,"UUNG SAMSI","","","","","",""],["B",109,"ENCO","","","","","",""],["B",110,"SUDARSONO","","","","","",""],["B",111,"AMAY SUTARDI","","","","","",""],["B",112,"JUFRI ST MALDO","","","","","",""],["B",113,"SUHAEMI","","","","","",""],["B",114,"SAAL BIN WARSA","","","","","",""],["B",115,"H. MALIKI","","","","","",""],["B",116,"H. SUKARNO","","","","","",""],["B",117,"HAM SUMARDI","","","","","",""],["B",118,"B. WARISAN","","","","","",""],["B",119,"AGUS SUBENO","","","","","",""],["B",120,"R.A HIDAYAT","","","","","",""],["B",121,"CH. SUDIRMAN","","","","","",""],["B",122,"S. BAKRI","","","","","",""],["B",123,"HARJO SUKARTO","","","","","",""],["C",1,"EDI SOMANTRI","","","","","",""],["C",2,"ROSADI","","","","","",""],["C",3,"SUHERMAN","","","","","",""],["C",4,"TARMADI","","","","","",""],["C",5,"CARUM","","","","","",""],["C",6,"SALEH","","","","","",""],["C",7,"ACENG","","","","","",""],["C",8,"NASDI","","","","","",""],["C",9,"KURDI","","","","","",""],["C",10,"RATIM","","","","","",""],["C",11,"SURYADI","","","","","",""],["C",12,"DAONG","","","","","",""],["C",13,"MADALIL","","","","","",""],["C",14,"RAMLI","","","","","",""],["C",15,"SAIMAN","","","","","",""],["C",16,"DAMSUR","","","","","",""],["C",17,"MAKSUDI","","","","","",""],["C",18,"CASIM","","","","","",""],["C",19,"TAHIB","","","","","",""],["C",20,"SADI","","","","","",""],["C",21,"MUCHARI","","","","","",""],["C",22,"SAPAR","","","","","",""],["C",23,"AMAT","","","","","",""],["C",24,"SUTARDI","","","","","",""],["C",25,"SUGRIWA","","","","","",""],["C",26,"AKIN","","","","","",""],["C",27,"TOYIB","","","","","",""],["C",28,"SUSENO","","","","","",""],["C",29,"DJUNEDI","","","","","",""],["C",30,"KARTAMAN","","","","","",""],["C",31,"SUKARJO","","","","","",""],["C",32,"MOH. SALEH","","","","","",""],["C",33,"DARJI","","","","","",""],["C",34,"MADAR","","","","","",""],["C",35,"MARSIDI","","","","","",""],["C",36,"E. SUPARDI","","","","","",""],["C",37,"AI PARTA SUITA","","","","","",""],["C",38,"TAK DIKENAL","","","","","",""],["C",39,"TAK DIKENAL","","","","","",""],["C",40,"TAK DIKENAL","","","","","",""],["C",41,"SIROD","","","","","",""],["C",42,"ACIP","","","","","",""],["C",43,"JAHURI","","","","","",""],["C",44,"MARKID","","","","","",""],["C",45,"KARNA","","","","","",""],["C",46,"RAMLI","","","","","",""],["C",47,"WARIANGI","","","","","",""],["C",48,"DJATA","","","","","",""],["C",49,"HUSEN","","","","","",""],["C",50,"TAK DIKENAL","","","","","",""],["C",51,"ALI YUNUS","","","","","",""],["C",52,"TAK DIKENAL","","","","","",""],["C",53,"PADLAS","","","","","",""],["C",54,"M. SUGANDA","","","","","",""],["C",55,"RAMLAN","","","","","",""],["C",56,"M. KASIM","","","","","",""],["C",57,"ASRAL","","","","","",""],["C",58,"TAK DIKENAL","","","","","",""],["C",59,"TAK DIKENAL","","","","","",""],["C",60,"KUSNAN","","","","","",""],["C",61,"RASIUN","","","","","",""],["C",62,"RAKIFAH","","","","","",""],["C",63,"MUNADI","","","","","",""],["C",64,"SYARIP","","","","","",""],["C",65,"SUKANTA","","","","","",""],["C",66,"TJASMITA","","","","","",""],["C",67,"S. LATIF","","","","","",""],["C",68,"NAIM","","","","","",""],["C",69,"WACHID","","","","","",""],["C",70,"NASDI","","","","","",""],["C",71,"SAYAMAN","","","","","",""],["C",72,"MADIRA","","","","","",""],["C",73,"TAK DIKENAL","","","","","",""],["C",74,"SOENDOYO","","","","","",""],["C",75,"H. SUCIPTO","","","","","",""],["C",76,"Rd. ISMAIL","","","","","",""],["C",77,"DADANG","","","","","",""],["C",78,"TAK DIKENAL","","","","","",""],["C",79,"A. GANI","","","","","",""],["C",80,"TARJAN","","","","","",""],["C",81,"HARUM","","","","","",""],["C",82,"H. ARSAD","","","","","",""],["C",83,"MAKSANI","","","","","",""],["C",84,"SUMITRA","","","","","",""],["C",85,"KAER SUJONO","","","","","",""],["C",86,"ABAS","","","","","",""],["C",87,"S. SASTRAATMAJA","","","","","",""],["C",88,"TURIMAN","","","","","",""],["C",89,"WARNITAM","","","","","",""],["C",90,"KADAR","","","","","",""],["C",91,"MOH. MADAMIN","","","","","",""],["C",92,"MOH. KUSEN","","","","","",""],["C",93,"DUL JAMAL","","","","","",""],["C",94,"DURACHMAN","","","","","",""],["C",95,"MARTOYITNO","","","","","",""],["C",96,"MOH. SUNARTO","","","","","",""],["C",97,"TAK DIKENAL","","","","","",""],["C",98,"TAK DIKENAL","","","","","",""],["C",99,"USMAN","","","","","",""],["C",100,"NYI MINI","","","","","",""],["D",1,"R. SUKIRA","","","","","",""],["D",2,"M. IDRIS","","","","","",""],["D",3,"MUCHANA","","","","","",""],["D",4,"MUNCI","","","","","",""],["D",5,"KOSIM","","","","","",""],["D",6,"SUMANTA","","","","","",""],["D",7,"TAK DIKENAL","","","","","",""],["D",8,"TOHIR","","","","","",""],["D",9,"MUSA","","","","","",""],["D",10,"NAKRAWI","","","","","",""],["D",11,"D. SUJONO","","","","","",""],["D",12,"SUPARYA","","","","","",""],["D",13,"J. SANEN","","","","","",""],["D",14,"KITANG HADI PRAYITNO","","","","","",""],["D",15,"SUKMADI","","","","","",""],["D",16,"H. SUANDI","","","","","",""],["D",17,"H. MASHARI","","","","","",""],["D",18,"AMBYAH","","","","","",""],["D",19,"Drs. ENDI SYAMSUL BACHRI","","","","","",""],["D",20,"KASTAWI","","","","","",""],["D",21,"DALAB","","","","","",""],["D",22,"SARJO","","","","","",""],["D",23,"ABAS","","","","","",""],["D",24,"SUTAWIJAYA","","","","","",""],["D",25,"TAK DIKENAL","","","","","",""],["D",26,"TAK DIKENAL","","","","","",""],["D",27,"TAK DIKENAL","","","","","",""],["D",28,"TAK DIKENAL","","","","","",""],["D",29,"TAK DIKENAL","","","","","",""],["D",30,"TAK DIKENAL","","","","","",""],["D",31,"K. ANSORUDIN (KAIWA) NAMA JEPANG","","","","","",""],["D",32,"H. NACHROWI","","","","","",""],["D",33,"TARWAN DANU SUWIRYO","","","","","",""],["D",34,"SAHURI","","","","","",""],["D",35,"KOSONG BELUM DIPAKAI","","","","","",""],["D",36,"M. DJAKARIA","","","","","",""],["D",37,"ISMAIL MANALU, SH","","","","","",""],["D",38,"ENDANG SURYAATMAJA","","","","","",""],["D",39,"SALEH SUPARDI","","","","","",""],["D",40,"HASYIM","","","","","",""],["D",41,"SAMIAN","","","","","",""],["D",42,"SOEDIRAN","","","","","",""],["D",43,"GANI","","","","","",""],["D",44,"MARDI","","","","","",""],["D",45,"TAK DIKENAL","","","","","",""],["D",46,"TARPAN","","","","","",""],["D",47,"MANSYUR","","","","","",""],["D",48,"DIMYATI","","","","","",""],["D",49,"R.E. ALI BASYAH","","","","","",""],["D",50,"RASID","","","","","",""],["D",51,"IMAM YUSUP","","","","","",""],["D",52,"TB. CHASANUDIN","","","","","",""],["D",53,"NUHUNG","","","","","",""],["D",54,"SAMAN","","","","","",""],["D",55,"DASUKI ATIM","","","","","",""],["D",56,"A. HAMID JAMIL HARAHAP","","","","","",""],["D",57,"HM. TJETJE SADELI","","","","","",""],["D",58,"S. SOEJADI","","","","","",""],["D",59,"R. SOEBOWO","","","","","",""],["D",60,"R. SUSENO","","","","","",""],["D",61,"TAK DIKENAL","","","","","",""],["D",62,"TAK DIKENAL","","","","","",""],["D",63,"TAK DIKENAL","","","","","",""],["D",64,"TAK DIKENAL","","","","","",""],["D",65,"TAK DIKENAL","","","","","",""],["D",66,"TAK DIKENAL","","","","","",""],["D",67,"TAK DIKENAL","","","","","",""],["D",68,"TAK DIKENAL","","","","","",""],["D",69,"TAK DIKENAL","","","","","",""],["D",70,"TAK DIKENAL","","","","","",""],["D",71,"IMRON","","","","","",""],["D",72,"A.H. SUWANDHI","","","","","",""],["D",73,"D. PUNGKUT","","","","","",""],["D",74,"M. MUMUH","","","","","",""],["D",75,"RADIMAN","","","","","",""],["D",76,"H.S. DJAMARIS ADI","","","","","",""],["D",77,"SUMITRO","","","","","",""],["D",78,"K. MISJA","","","","","",""],["D",79,"AHMAD IMERA","","","","","",""],["D",80,"BARIMIN PS","","","","","",""],["D",81,"TAK DIKENAL","","","","","",""],["D",82,"R. DJALI","","","","","",""],["D",83,"BAKRI","","","","","",""],["D",84,"MASTAR","","","","","",""],["D",85,"RUMLI","","","","","",""],["D",86,"SARDINA","","","","","",""],["D",87,"TAK DIKENAL","","","","","",""],["D",88,"SABARI","","","","","",""],["D",89,"DASMAN","","","","","",""],["D",90,"TAK DIKENAL","","","","","",""],["D",91,"ELLY FATIMAH","","","","","",""],["D",92,"AM. CHAMDI INDRAJAYA","","","","","",""],["D",93,"L. RAHULI","","","","","",""],["D",94,"S. SIMIN","","","","","",""],["D",95,"SALAM","","","","","",""],["D",96,"ASRUMIYATI","","","","","",""],["D",97,"H. ABDUL KADIR","","","","","",""],["D",98,"H. SOEBADHI","","","","","",""],["D",99,"KAMARUJAMAN","","","","","",""],["D",100,"O. SUDARYA","","","","","",""],["D",101,"DULGANI","","","","","",""],["D",102,"TAK DIKENAL","","","","","",""],["D",103,"TAK DIKENAL","","","","","",""],["D",104,"TAK DIKENAL","","","","","",""],["D",105,"TAK DIKENAL","","","","","",""],["D",106,"TAK DIKENAL","","","","","",""],["D",107,"TAK DIKENAL","","","","","",""],["D",108,"TAK DIKENAL","","","","","",""],["D",109,"TAK DIKENAL","","","","","",""],["D",110,"TAK DIKENAL","","","","","",""],["D",111,"RUDI JAYA","","","","","",""],["D",112,"SPM. NGALIMAN","","","","","",""],["D",113,"KUSNADI","","","","","",""],["D",114,"OMON","","","","","",""],["D",115,"NGADIMIN","","","","","",""],["D",116,"SURYAKUM","","","","","",""],["D",117,"SUJANA","","","","","",""],["D",118,"H.M. AMIN","","","","","",""],["D",119,"ANWAR SUMANO","","","","","",""],["D",120,"H. SONO BUDOYO","","","","","",""],["D",121,"TAK DIKENAL","","","","","",""],["D",122,"TAK DIKENAL","","","","","",""],["D",123,"TAK DIKENAL","","","","","",""],["D",124,"TAK DIKENAL","","","","","",""],["D",125,"TAK DIKENAL","","","","","",""],["D",126,"SUKIRMAN","","","","","",""],["D",127,"TARJONO","","","","","",""],["D",128,"RAHMAT","","","","","",""],["D",129,"KIJO","","","","","",""],["D",130,"KASMAN","","","","","",""],["D",131,"KASBULAH","","","","","",""],["D",132,"M. SUGANDHI","","","","","",""],["D",133,"M. KARMO","","","","","",""],["D",134,"H.A. SUJANA","","","","","",""],["D",135,"M. IDRIS","","","","","",""],["D",136,"IDING SUKARDI","","","","","",""],["D",137,"MD. SUFAR","","","","","",""],["D",138,"SUPARMIN","","","","","",""],["D",139,"H. MURTANI AMSIR","","","","","",""],["D",140,"ARIP SUTARMIN","","","","","",""],["D",141,"SUPARMAN","","","","","",""],["D",142,"SARDI","","","","","",""],["D",143,"KARYONO","","","","","",""],["D",144,"IMAN","","","","","",""],["D",145,"MANSYUR","","","","","",""],["D",146,"MENDONG","","","","","",""],["D",147,"SARMA","","","","","",""],["D",148,"NYI SARTINAH","","","","","",""],["D",149,"PAIJO","","","","","",""],["D",150,"SARWADI","","","","","",""],["D",151,"ANAS","","","","","",""],["D",152,"KASAN","","","","","",""],["D",153,"E. GANDA MIHARJA","","","","","",""],["D",154,"AKIS SUMARNA","","","","","",""],["D",155,"H. SETIADJID UDAYA","","","","","",""],["D",156,"DJUNED","","","","","",""],["D",157,"SOEROSO","","","","","",""],["D",158,"GUNAWAN JAID","","","","","",""],["D",159,"RAZALI","","","","","",""],["D",160,"ABDUL AZIZ. N","","","","","",""],["D",161,"MUHAMAD","","","","","",""],["D",162,"HERMANSYAH","","","","","",""],["D",163,"DJATMA","","","","","",""],["D",164,"ENDIN","","","","","",""],["D",165,"DAPIN","","","","","",""],["D",166,"AMSOR","","","","","",""],["D",167,"MURJONO","","","","","",""],["D",168,"ROHANAH","","","","","",""],["D",169,"MAKSUM","","","","","",""],["D",170,"ABDUL RAHMAN RAJA MUDA","","","","","",""],["D",171,"ABDUL RASID","","","","","",""],["D",172,"E. SURYANA","","","","","",""],["D",173,"H. OYO SUNARYO","","","","","",""],["D",174,"R. SOECIPTO","","","","","",""],["D",175,"ILYAS WAHYA","","","","","",""],["D",176,"SUMADINATA","","","","","",""],["D",177,"H. ABDUL MANAP","","","","","",""],["D",178,"TJASWA SUTISNA","","","","","",""],["D",179,"K. SUMARNA","","","","","",""],["D",180,"YUDO REKSONO","","","","","",""],["D",181,"BAI","","","","","",""],["D",182,"WETA","","","","","",""],["D",183,"MUNAWI","","","","","",""],["D",184,"BONTOT","","","","","",""],["D",185,"SARKIM","","","","","",""],["D",186,"NURTAWI","","","","","",""],["D",187,"MAIDA","","","","","",""],["D",188,"MAMAT","","","","","",""],["D",189,"WASMAN/ASMAR","","","","","",""],["D",190,"USMAN","","","","","",""],["D",191,"ABDIL FATAH","","","","","",""],["D",192,"NONO SURYADI","","","","","",""],["D",193,"MONEL","","","","","",""],["D",194,"K. BROTOATMOJO","","","","","",""],["D",195,"HM. S. MARJUKI","","","","","",""],["D",196,"BELUM TERPAKAI","","","","","",""],["D",197,"M.S. EFENDI","","","","","",""],["D",198,"KUSNO","","","","","",""],["D",199,"NARYOTO","","","","","",""],["D",200,"E. SUKANDI","","","","","",""],["E",1,"DEMO","","","","","",""],["E",2,"BULKIM","","","","","",""],["E",3,"RATI","","","","","",""],["E",4,"HASANUDIN","","","","","",""],["E",5,"WETA","","","","","",""],["E",6,"MOH. MISBAK","","","","","",""],["E",7,"SUPARTA","","","","","",""],["E",8,"PRI","","","","","",""],["E",9,"A. ROWA","","","","","",""],["E",10,"SUJAI","","","","","",""],["E",11,"SARDONO","","","","","",""],["E",12,"W. MINTARTO","","","","","",""],["E",13,"H. SAMBUDI JOHAN","","","","","",""],["E",14,"SUDARSONO SALEH","","","","","",""],["E",15,"H. DASTA SOESWO","","","","","",""],["E",16,"W. ALIYUDIN","","","","","",""],["E",17,"H.M. ILYAS","","","","","",""],["E",18,"R. MOHTAR","","","","","",""],["E",19,"ASWAD","","","","","",""],["E",20,"BACHTIAR","","","","","",""],["E",21,"MOH. ARSYAD","","","","","",""],["E",22,"D. SUKADI","","","","","",""],["E",23,"DJAELANI","","","","","",""],["E",24,"M. BICHAER. S","","","","","",""],["E",25,"I. BACHTARUDIN","","","","","",""],["E",26,"SOEDI KERSOSOEDIRO","","","","","",""],["E",27,"S. PONIMAN","","","","","",""],["Budha",1,"TJENG KENG YOE","A.P","","POLRI","1952","",""],["Budha",2,"OEY KIM SEK","A.P","","POLRI","1950","",""],["Kristen",1,"Y.P. SARIWATING","PELTU","KOREM063 SGJ","TNI-AD","1956","",""],["Kristen",2,"HENDRIK","KAPTEN","","TNI-AD","1970","",""],["Kristen",3,"TAK DIKENAL","","","","1972","",""],["Kristen",4,"HUMALA SIHITE","PELDA/132304","KODIM 0614 KOTA CIREBON","TNI-AD","04-07-1978","",""],["Kristen",5,"SIANTURI","PELTU/182878","KOREM063 SGJ","TNI-AD","23-09-1986","",""],["Kristen",6,"G. SAMOSIR","LETDA/152501","","TNI-AD","17-07-1991","",""],["Kristen",7,"WILLEM H. NAMDAGI","PELTU/148507","KOREM063 SGJ","TNI-AD","25-04-1993","",""],["Kristen",8,"M. TAMBUNAN","PELTU/163112","KODIM 0614 KOTA CIREBON","TNI-AD","29-05-1999","",""],["Kristen",9,"W. HUTABARAT","LETDA","KOREM063 SGJ","TNI-AD","13-11-2012","",""],["Kristen",10,"TAK DIKENAL (1 ORANG)","","","","","",""],["Bahagia",1,"SUGIARTO","KOLONEL","DIKLAT BANDUNG","TNI-AD","","26-09-2012",""],["Bahagia",2,"TARJUNA","SERDA","KODIM 0614 KOTA CIREBON","TNI-AD","","01-11-2012",""],["Bahagia",3,"SOEJARWO","KOLONEL","KODAM III SILIWANGI","TNI-AD","","17-09-2015",""],["Bahagia",4,"H. SUNARYO HW","KOLONEL ART/23270","KODAM III SILIWANGI","TNI-AD","","",""],["Bahagia",5,"S. HARIJANTO","KAPTEN LAUT /201831P","PANGKALAN ANGKATAN LAUT CIREBON","TNI-AL","","",""]];
+  var BLOKS=[['A','Blok A','A'],['B','Blok B','B'],['C','Blok C','C'],['D','Blok D','D'],['E','Blok E','E'],['Budha','Blok Budha','BDH'],['Kristen','Blok Kristen','KRS'],['Bahagia','Blok Bahagia','BHG']];
+  var PFX={};BLOKS.forEach(function(b){PFX[b[0]]=b[2]});
+  var KLBL={g:'Gugur',w:'Wafat',u:'Belum tercatat'};
+  var data=RAW.map(function(r,i){
+    return{i:i,blok:r[0],no:r[1],kode:PFX[r[0]]+'-'+String(r[1]).padStart(3,'0'),nama:r[2],pangkat:r[3],jabatan:r[4],kesatuan:r[5],
+      tgl:r[6]||r[7],kind:r[6]?'g':(r[7]?'w':'u'),ket:r[8],tak:/tak dikenal/i.test(r[2])};
+  });
+
+  /* akordeon */
+  function accordion(btn,panel,openText,closeText,open){
+    function set(o){btn.setAttribute('aria-expanded',o?'true':'false');btn.textContent=o?closeText:openText;panel.hidden=!o}
+    btn.addEventListener('click',function(){set(btn.getAttribute('aria-expanded')!=='true')});
+    set(open);return set;
+  }
+  var setDenah=accordion($('tog-denah'),$('denah'),'Buka','Tutup',!matchMedia('(max-width:700px)').matches);
+  var setData=accordion($('tog-data'),$('data-body'),'Buka','Tutup',false);
+  var setRekap=accordion($('tog-rekap'),$('rekap-body'),'Buka','Tutup',false);
+
+  /* denah nisan per blok */
+  var st=$('stones'),bch=$('bchips'),detail=$('detail'),dsearch=$('dsearch'),dmsg=$('dmsg');
+  var curBlok='A',selI=-1,firstPaint=true,hitQ='',hitPos=-1;
+  function cnt(b){return data.filter(function(d){return d.blok===b}).length}
+  function renderChips(){
+    var h='<button type="button" class="bchip" data-b="*" aria-pressed="'+(curBlok==='*')+'">Semua<small>'+data.length+'</small></button>';
+    BLOKS.forEach(function(b){h+='<button type="button" class="bchip" data-b="'+b[0]+'" aria-pressed="'+(curBlok===b[0])+'">'+b[1].replace('Blok ','')+'<small>'+cnt(b[0])+'</small></button>'});
+    bch.innerHTML=h;
+  }
+  function markHits(){
+    [].forEach.call(st.querySelectorAll('button.hit'),function(b){b.classList.remove('hit')});
+    if(!hitQ){dmsg.textContent='';return}
+    var m=data.filter(function(d){return d.nama.toLowerCase().indexOf(hitQ)>-1});
+    m.forEach(function(d){var el=st.querySelector('[data-i="'+d.i+'"]');if(el)el.classList.add('hit')});
+    dmsg.textContent=m.length?m.length+' nama cocok. Tekan Enter untuk membuka hasil berikutnya.':'Tidak ada nama yang cocok.';
+  }
+  function renderDenah(){
+    var list=curBlok==='*'?BLOKS:BLOKS.filter(function(b){return b[0]===curBlok}),h='',k=0;
+    list.forEach(function(b){
+      var items=data.filter(function(d){return d.blok===b[0]});
+      h+='<div class="grp"><div class="grp-h"><span>'+b[1]+'</span><span>'+items.length+' makam</span></div><div class="stones">';
+      items.forEach(function(d){
+        h+='<button type="button" tabindex="-1" data-i="'+d.i+'" data-s="'+d.kind+'"'+(firstPaint&&k<120?' style="animation-delay:'+(k*8)+'ms"':'')+' aria-label="'+esc(d.kode+' '+d.nama)+'"></button>';k++;
+      });
+      h+='</div></div>';
+    });
+    st.innerHTML=h;firstPaint=false;
+    if(selI>=0){var el=st.querySelector('[data-i="'+selI+'"]');if(el)el.classList.add('sel')}
+    markHits();
+  }
+  function setBlok(b){curBlok=b;renderChips();renderDenah()}
+  function line(l,v){return v?'<span class="mt">'+l+': '+esc(v)+'</span>':''}
+  function selectNisan(i,quiet){
+    var d=data[i];if(!d)return;
+    selI=i;
+    if(curBlok!=='*'&&curBlok!==d.blok){setBlok(d.blok)}
+    var prev=st.querySelector('button.sel');if(prev)prev.classList.remove('sel');
+    var el=st.querySelector('[data-i="'+i+'"]');
+    if(el){el.classList.add('sel');if(!quiet)el.scrollIntoView({block:'nearest',inline:'nearest'})}
+    var info=line('Pangkat',d.pangkat)+line('Jabatan',d.jabatan)+line('Kesatuan',d.kesatuan)
+      +(d.tgl?'<span class="mt">'+KLBL[d.kind]+': '+esc(d.tgl)+'</span>':'')
+      +line('Keterangan',d.ket?d.ket.charAt(0).toUpperCase()+d.ket.slice(1):'');
+    if(!info)info='<span class="mt">Pangkat dan tanggal belum tercatat di daftar.</span>';
+    detail.innerHTML='<span class="nm">'+esc(d.nama)+'</span><span class="mt">Makam '+d.kode+' · Blok '+d.blok+' · nomor '+d.no+'</span>'+info;
+  }
+  st.addEventListener('click',function(e){var b=e.target.closest('button');if(b)selectNisan(+b.dataset.i)});
+  bch.addEventListener('click',function(e){var b=e.target.closest('button');if(b)setBlok(b.dataset.b)});
+  dsearch.addEventListener('input',function(){hitQ=this.value.trim().toLowerCase();hitPos=-1;markHits()});
+  dsearch.addEventListener('keydown',function(e){
+    if(e.key!=='Enter')return;e.preventDefault();
+    if(!hitQ)return;
+    var m=data.filter(function(d){return d.nama.toLowerCase().indexOf(hitQ)>-1});
+    if(!m.length)return;
+    hitPos=(hitPos+1)%m.length;selectNisan(m[hitPos].i);
+  });
+  renderChips();renderDenah();
+
+  /* tabel data pahlawan */
+  var page=1,PER=15,filtered=data;
+  var kc={g:0,w:0,u:0},tak=0;data.forEach(function(d){kc[d.kind]++;if(d.tak)tak++});
+  $('chips').innerHTML='<span class="chip">'+data.length+' nama</span><span class="chip">Gugur '+kc.g+'</span><span class="chip">Wafat '+kc.w+'</span><span class="chip">Belum tercatat '+kc.u+'</span><span class="chip">Tak dikenal '+tak+'</span>';
+  function render(){
+    var k=$('q').value.trim().toLowerCase(),bv=$('blok').value,sv=$('status').value;
+    filtered=data.filter(function(d){
+      if(bv&&d.blok!==bv)return false;
+      if(sv==='tak'){if(!d.tak)return false}else if(sv&&d.kind!==sv)return false;
+      if(!k)return true;
+      return(d.nama+' '+d.pangkat+' '+d.jabatan+' '+d.kesatuan+' '+d.kode).toLowerCase().indexOf(k)>-1;
+    });
+    var pages=Math.max(1,Math.ceil(filtered.length/PER));if(page>pages)page=pages;
+    var slice=filtered.slice((page-1)*PER,page*PER);
+    $('rows').innerHTML=slice.map(function(d){
+      var unit=[d.kesatuan,d.jabatan].filter(Boolean).join(' · ')||'—';
+      var tg=d.tgl?'<span class="tag'+(d.kind==='g'?' v':'')+'">'+KLBL[d.kind]+'</span> '+esc(d.tgl):'<span class="tag">Belum tercatat</span>';
+      return'<tr><td class="m">'+d.kode+'</td><td>'+esc(d.nama)+'</td><td>'+(esc(d.pangkat)||'—')+'</td><td>'+esc(unit)+'</td><td class="m">'+tg+'</td><td>Blok '+d.blok+'</td><td><button class="btn ghost sm" data-see="'+d.i+'">Lihat nisan</button></td></tr>';
+    }).join('');
+    $('empty').hidden=filtered.length>0;
+    $('count').textContent=filtered.length?('Halaman '+page+' dari '+pages+' · '+filtered.length+' data'):'0 data';
+    $('prev').disabled=page<=1;$('next').disabled=page>=pages;
+  }
+  ['q','blok','status'].forEach(function(id){$(id).addEventListener('input',function(){page=1;render()})});
+  $('prev').addEventListener('click',function(){if(page>1){page--;render()}});
+  $('next').addEventListener('click',function(){page++;render()});
+  $('rows').addEventListener('click',function(e){
+    var b=e.target.closest('[data-see]');if(!b)return;
+    setDenah(true);selectNisan(+b.dataset.see,true);
+    $('hero').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  });
+  render();
+
+/* ===== formulir dan penyimpanan ===== */
+  var db=null,userCap=null,dl=null,isAdmin=false;
+  var today=new Date(Date.now()+7*3600*1000).toISOString().slice(0,10);
+  var SVC={
+    kunjungan:{jenis:'Rencana ziarah',title:'Rencana ziarah',desc:'',submit:'Simpan rencana ziarah',f:[
+      {id:'nama',k:'nama',l:'Nama rombongan / instansi',req:1,ph:'Contoh: SMAN 1 Cirebon'},
+      {id:'kontak',k:'kontak',l:'No. WhatsApp',t:'tel',req:1,ph:'08xxxxxxxxxx'},
+      {id:'tanggal',k:'tanggal',l:'Rencana tanggal',t:'date',req:1,min:today},
+      {id:'jumlah',k:'jumlah',l:'Jumlah peserta',t:'number',req:1,val:30},
+      {id:'catatan',l:'Catatan (opsional)',t:'textarea'}]},
+    ziarah:{jenis:'Izin ziarah rombongan',title:'Izin ziarah rombongan',desc:'Ajukan jadwal agar petugas dapat menyiapkan area makam dan mendampingi rombongan.',submit:'Kirim pengajuan izin',f:[
+      {id:'nama',k:'nama',l:'Nama rombongan / instansi',req:1},
+      {id:'pj',l:'Penanggung jawab',req:1},
+      {id:'kontak',k:'kontak',l:'No. WhatsApp',t:'tel',req:1,ph:'08xxxxxxxxxx'},
+      {id:'tanggal',k:'tanggal',l:'Tanggal ziarah',t:'date',req:1,min:today},
+      {id:'jam',l:'Perkiraan jam tiba',t:'time'},
+      {id:'jumlah',k:'jumlah',l:'Jumlah peserta',t:'number',req:1,val:30},
+      {id:'kegiatan',l:'Jenis kegiatan',t:'select',o:['Ziarah biasa','Studi lapangan sejarah','Tabur bunga rombongan','Lainnya']},
+      {id:'pemandu',l:'Perlu pemandu?',t:'select',o:['Tidak','Ya, perlu pemandu']},
+      {id:'catatan',l:'Catatan (opsional)',t:'textarea'}]},
+    renungan:{jenis:'Renungan suci',title:'Izin renungan suci',desc:'Untuk kegiatan renungan suci malam peringatan kemerdekaan.',submit:'Kirim pengajuan izin',f:[
+      {id:'nama',k:'nama',l:'Nama penyelenggara',req:1},
+      {id:'pj',l:'Penanggung jawab',req:1},
+      {id:'kontak',k:'kontak',l:'No. WhatsApp',t:'tel',req:1,ph:'08xxxxxxxxxx'},
+      {id:'tanggal',k:'tanggal',l:'Tanggal kegiatan',t:'date',req:1,min:today},
+      {id:'jam',l:'Jam mulai',t:'time',req:1},
+      {id:'jumlah',k:'jumlah',l:'Perkiraan peserta',t:'number',req:1,val:100},
+      {id:'rangkaian',l:'Rangkaian acara',t:'checks',o:['Apel kehormatan','Mengheningkan cipta','Penyalaan obor','Pembacaan doa','Pemadaman lampu']},
+      {id:'catatan',l:'Catatan (opsional)',t:'textarea'}]},
+    tabur:{jenis:'Tabur bunga Hari Pahlawan',title:'Pendaftaran tabur bunga',desc:'Daftarkan rombongan untuk tabur bunga pada Hari Pahlawan, 10 November.',submit:'Daftarkan rombongan',f:[
+      {id:'nama',k:'nama',l:'Nama instansi / sekolah / komunitas',req:1},
+      {id:'pj',l:'Penanggung jawab',req:1},
+      {id:'kontak',k:'kontak',l:'No. WhatsApp',t:'tel',req:1,ph:'08xxxxxxxxxx'},
+      {id:'tanggal',k:'tanggal',l:'Tanggal',t:'date',req:1,val:'2026-11-10'},
+      {id:'jumlah',k:'jumlah',l:'Jumlah peserta',t:'number',req:1,val:20},
+      {id:'sesi',l:'Pilihan sesi',t:'select',o:['Sesuai arahan petugas','Pagi','Siang']},
+      {id:'bunga',l:'Bunga',t:'select',o:['Membawa sendiri','Minta dikoordinasikan']},
+      {id:'catatan',l:'Catatan (opsional)',t:'textarea'}]},
+    makam:{jenis:'Pengajuan pemakaman',title:'Pengajuan pemakaman',desc:'Isi data ahli waris dan almarhum. Dinas Sosial akan memverifikasi kelayakan dan dokumen.',submit:'Kirim pengajuan',f:[
+      {id:'nama',k:'nama',l:'Nama pemohon (ahli waris)',req:1},
+      {id:'hubungan',l:'Hubungan dengan almarhum',t:'select',o:['Anak','Istri / suami','Cucu','Saudara','Lainnya']},
+      {id:'kontak',k:'kontak',l:'No. WhatsApp',t:'tel',req:1,ph:'08xxxxxxxxxx'},
+      {id:'almarhum',l:'Nama almarhum / almarhumah',req:1},
+      {id:'status',l:'Status almarhum',t:'select',o:['Pejuang','Veteran','Perintis kemerdekaan','Belum diketahui']},
+      {id:'tanggal',k:'tanggal',l:'Tanggal wafat',t:'date',req:1},
+      {id:'dokumen',l:'Dokumen yang sudah dimiliki',t:'checks',o:['Surat keterangan kematian','KTP pemohon','Kartu keluarga','SK / piagam status kepahlawanan atau veteran']},
+      {id:'catatan',l:'Catatan (opsional)',t:'textarea'}]}
+  };
+
+  function fieldHTML(f,p){
+    var id=p+f.id,req=f.req?' required':'',lbl=esc(f.l)+(f.req?' *':'');
+    if(f.t==='textarea')return'<label class="l" for="'+id+'">'+lbl+'<textarea id="'+id+'"></textarea></label>';
+    if(f.t==='select')return'<label class="l" for="'+id+'">'+lbl+'<select id="'+id+'">'+f.o.map(function(o){return'<option>'+esc(o)+'</option>'}).join('')+'</select></label>';
+    if(f.t==='checks')return'<fieldset><legend>'+lbl+'</legend>'+f.o.map(function(o,i){return'<label class="chk"><input type="checkbox" name="'+id+'" value="'+esc(o)+'" id="'+id+i+'">'+esc(o)+'</label>'}).join('')+'</fieldset>';
+    var ex=(f.min?' min="'+f.min+'"':'')+(f.t==='number'?' min="1"':'')+(f.val!==undefined?' value="'+esc(f.val)+'"':'')+(f.ph?' placeholder="'+esc(f.ph)+'"':'');
+    return'<label class="l" for="'+id+'">'+lbl+'<input id="'+id+'" type="'+(f.t||'text')+'"'+ex+(f.t==='tel'?' inputmode="tel"':'')+'></label>';
+  }
+  function mountForm(key,host){
+    var cfg=SVC[key],p='f-'+key+'-';
+    host.innerHTML='<form class="form" novalidate>'+cfg.f.map(function(f){return fieldHTML(f,p)}).join('')+'<div class="err" role="alert" hidden></div><button class="btn primary" type="submit">'+esc(cfg.submit)+'</button><div class="resbox" aria-live="polite"></div></form>';
+    var form=host.firstChild,errEl=form.querySelector('.err'),box=form.querySelector('.resbox'),btn=form.querySelector('button[type=submit]');
+    form.addEventListener('submit',function(e){
+      e.preventDefault();errEl.hidden=true;
+      var vals={},std={},extra=[],miss=[];
+      cfg.f.forEach(function(f){
+        var v;
+        if(f.t==='checks'){v=[].slice.call(form.querySelectorAll('input[name="'+p+f.id+'"]:checked')).map(function(c){return c.value}).join(', ')}
+        else{v=document.getElementById(p+f.id).value.trim()}
+        if(f.req&&!v)miss.push(f.l);
+        if(f.t==='tel'&&v&&v.replace(/\D/g,'').length<9)miss.push(f.l+' (minimal 9 angka)');
+        if(f.t==='number'&&v&&(+v<1))miss.push(f.l);
+        if(f.k)std[f.k]=v;else if(v)extra.push(f.l+': '+v);
+      });
+      if(miss.length){errEl.textContent='Lengkapi dulu: '+miss.join(', ')+'.';errEl.hidden=false;return}
+      var kode='ETMP-'+Date.now().toString(36).slice(-5).toUpperCase()+Math.random().toString(36).slice(2,4).toUpperCase();
+      var rec={kode:kode,jenis:cfg.jenis,ts:Date.now(),waktu:new Date().toLocaleString('id-ID',{timeZone:'Asia/Jakarta'}),nama:std.nama||'',kontak:std.kontak||'',tanggal:std.tanggal||'',jumlah:std.jumlah?+std.jumlah:'',detail:extra.join(' | ')};
+      var summary='Kode: '+kode+'\nJenis: '+rec.jenis+'\nNama: '+rec.nama+'\nKontak: '+rec.kontak+'\nTanggal: '+rec.tanggal+(rec.jumlah?'\nJumlah: '+rec.jumlah:'')+(rec.detail?'\n'+rec.detail.split(' | ').join('\n'):'');
+      btn.disabled=true;btn.textContent='Menyimpan...';
+      var job=db?db.collection('pengajuan').doc(kode).set(rec):Promise.reject({code:'not_granted'});
+      job.then(function(){
+        box.innerHTML='<div class="res good"><b>Pengajuan tersimpan</b><span>Kode pengajuan Anda:</span><span class="code">'+esc(kode)+'</span><pre>'+esc(summary)+'</pre><span>Simpan kode ini. Petugas Dinas Sosial akan menghubungi nomor WhatsApp Anda.</span></div>';
+        form.reset();
+      }).catch(function(err){
+        box.innerHTML='<div class="res bad"><b>Belum bisa menyimpan</b><span>'+(err&&err.code==='invalid_argument'?'Akun Anda belum diberi izin mengirim data di halaman ini.':'Penyimpanan tidak tersedia saat ini.')+' Salin ringkasan di bawah dan kirim langsung ke petugas.</span><pre>'+esc(summary)+'</pre><button type="button" class="btn ghost sm" data-copy>Salin ringkasan</button></div>';
+        var cb=box.querySelector('[data-copy]');
+        cb.addEventListener('click',function(){
+          var pre=box.querySelector('pre');
+          (navigator.clipboard?navigator.clipboard.writeText(summary):Promise.reject()).then(function(){cb.textContent='Tersalin'}).catch(function(){var r=document.createRange();r.selectNodeContents(pre);var sl=getSelection();sl.removeAllRanges();sl.addRange(r);cb.textContent='Teks dipilih, tekan salin'});
+        });
+      }).then(function(){btn.disabled=false;btn.textContent=cfg.submit;box.scrollIntoView({block:'nearest',behavior:reduce?'auto':'smooth'})});
+    });
+  }
+  mountForm('kunjungan',$('kform'));
+
+  /* modal layanan */
+  var modal=$('modal'),lastBtn=null;
+  function openModal(key){
+    var cfg=SVC[key];lastBtn=document.activeElement;
+    $('m-title').textContent=cfg.title;$('m-desc').textContent=cfg.desc;
+    mountForm(key,$('m-body'));modal.hidden=false;document.body.classList.add('lock');
+    var first=$('m-body').querySelector('input,select,textarea');if(first)first.focus();
+  }
+  function closeModal(){modal.hidden=true;document.body.classList.remove('lock');$('m-body').innerHTML='';if(lastBtn)lastBtn.focus()}
+  document.querySelectorAll('[data-svc]').forEach(function(b){b.addEventListener('click',function(){openModal(b.dataset.svc)})});
+  $('m-x').addEventListener('click',closeModal);
+  modal.addEventListener('click',function(e){if(e.target===modal)closeModal()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!modal.hidden)closeModal()});
+
+  /* rekap petugas */
+  var recs=[];
+  function renderRekap(){
+    $('rk-title').textContent='Pengajuan masuk ('+recs.length+')';
+    $('rk-empty').hidden=recs.length>0;
+    var tb=$('rk-rows');tb.innerHTML='';
+    recs.forEach(function(r){
+      var tr=document.createElement('tr');
+      [r.waktu,r.kode,r.jenis,r.nama,r.kontak,r.tanggal,r.jumlah,r.detail].forEach(function(v,i){
+        var td=document.createElement('td');if(i===1||i===0||i===5||i===6)td.className='m';td.textContent=(v===undefined||v===null)?'':String(v);tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+  }
+  function csvCell(v){v=(v===undefined||v===null)?'':String(v);if(/^[=+\-@]/.test(v))v="'"+v;return'"'+v.replace(/"/g,'""')+'"'}
+  $('csv').addEventListener('click',function(){
+    var head=['Waktu','Kode','Jenis','Nama','Kontak','Tanggal','Jumlah','Detail'];
+    var lines=[head.map(csvCell).join(',')].concat(recs.map(function(r){return[r.waktu,r.kode,r.jenis,r.nama,r.kontak,r.tanggal,r.jumlah,r.detail].map(csvCell).join(',')}));
+    var b=this;
+    if(!dl){b.textContent='Unduhan tidak tersedia';return}
+    dl.save({filename:'pengajuan-etmp-cirebon.csv',data:'﻿'+lines.join('\r\n')}).then(function(){b.textContent='Tersimpan'}).catch(function(){b.textContent='Unduh CSV'});
+  });
+  function startAdmin(){
+    isAdmin=true;$('rekap').hidden=false;$('nav-rekap').hidden=false;
+    db.collection('pengajuan').orderBy('ts','desc').limit(500).onSnapshot(function(s){recs=s.docs.map(function(d){return d.data()});renderRekap()},function(){});
+  }
+
+  /* kapabilitas */
+  if(window.claude&&window.claude.use){
+    Promise.all([window.claude.use('db'),window.claude.use('user'),window.claude.use('downloads')]).then(function(r){
+      db=r[0];userCap=r[1];dl=r[2];
+      if(db&&userCap){return Promise.resolve(userCap.canEdit()).then(function(ok){if(ok)startAdmin()})}
+    }).catch(function(){});
+  }
+
+  /* bintang dan bara */
+  var hero=$('hero'),cv=$('fx'),cx=cv.getContext('2d'),W=0,H=0,dpr=1,stars=[],embers=[];
+  function rnd(a,b){return a+Math.random()*(b-a)}
+  function ember(init){return{x:rnd(0,W),y:init?rnd(H*.3,H):H*rnd(.85,1),vy:rnd(.12,.4)*dpr,ph:rnd(0,6.28),r:rnd(.8,2.2)*dpr,life:rnd(.5,1)}}
+  function setup(){
+    var r=hero.getBoundingClientRect();dpr=Math.min(window.devicePixelRatio||1,2);
+    W=cv.width=Math.max(1,r.width*dpr);H=cv.height=Math.max(1,r.height*dpr);
+    stars=[];for(var i=0;i<80;i++)stars.push({x:rnd(0,W),y:rnd(0,H*.5),r:rnd(.5,1.5)*dpr,p:rnd(0,6.28)});
+    embers=[];for(var k=0;k<34;k++)embers.push(ember(true));
+  }
+  function draw(t){
+    cx.clearRect(0,0,W,H);
+    stars.forEach(function(s){var a=reduce?.6:.35+.45*Math.sin(t*.0012+s.p);cx.fillStyle='rgba(255,246,230,'+a.toFixed(2)+')';cx.beginPath();cx.arc(s.x,s.y,s.r,0,6.28);cx.fill()});
+    embers.forEach(function(e,i){
+      if(!reduce){e.y-=e.vy;e.x+=Math.sin(t*.001+e.ph)*.3*dpr;e.life-=.0016}
+      if(e.life<=0||e.y<H*.1){embers[i]=ember(false);return}
+      var g=cx.createRadialGradient(e.x,e.y,0,e.x,e.y,e.r*4);
+      g.addColorStop(0,'rgba(255,200,120,'+(e.life*.9).toFixed(2)+')');g.addColorStop(1,'rgba(255,140,70,0)');
+      cx.fillStyle=g;cx.beginPath();cx.arc(e.x,e.y,e.r*4,0,6.28);cx.fill();
+    });
+  }
+  setup();draw(0);
+  if(!reduce){(function loop(t){draw(t);requestAnimationFrame(loop)})(0)}
+  var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){setup();draw(0)},150)});
+
+  /* tema */
+  var root=document.documentElement;
+  $('theme').addEventListener('click',function(){
+    var dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+    root.dataset.theme=dark?'light':'dark';
+  });
+})();
+</script>
+
+</body></html>

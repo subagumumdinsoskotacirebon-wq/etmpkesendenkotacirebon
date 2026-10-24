@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TMP Kesenden - Taman Makam Pahlawan Kota Cirebon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--merah:#C8102E;--merah-gelap:#9B0C23;--emas:#D4AF37;--emas-muda:#F4E4BC;--hitam:#0f0f0f;--abu:#6b6b6b;--abu-muda:#f5f5f5;--transisi:all .4s cubic-bezier(.25,.8,.25,1);--shadow:0 10px 40px rgba(0,0,0,.15)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:'Poppins',sans-serif;color:#1a1a1a;background:#fff;line-height:1.7;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;line-height:1.3}
+a{text-decoration:none;color:inherit}
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* ===== NAVBAR ===== */
+.navbar{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:20px 0;transition:var(--transisi)}
+.navbar.scrolled{background:rgba(15,15,15,.95);backdrop-filter:blur(12px);padding:12px 0;box-shadow:0 4px 30px rgba(0,0,0,.3)}
+.nav-container{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;padding:0 24px}
+.nav-logo{display:flex;align-items:center;gap:12px;color:#fff;font-family:'Playfair Display',serif;font-weight:700;font-size:1.3rem}
+.nav-logo .logo-icon{width:44px;height:44px;background:var(--merah);border:2px solid var(--emas);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.nav-logo small{display:block;font-family:'Poppins',sans-serif;font-size:.65rem;font-weight:400;letter-spacing:1px;color:var(--emas-muda);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:8px;list-style:none}
+.nav-links a{color:#fff;font-size:.9rem;font-weight:500;padding:8px 16px;border-radius:6px;transition:var(--transisi)}
+.nav-links a:hover,.nav-links a.active{color:var(--emas)}
+.nav-cta{background:var(--merah);padding:10px 24px!important;border-radius:50px!important;font-weight:600!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;z-index:1001}
+.hamburger span{width:28px;height:3px;background:#fff;border-radius:3px;transition:var(--transisi)}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(6px,6px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
+
+/* ===== HERO ===== */
+.hero{height:100vh;min-height:650px;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:linear-gradient(135deg,#0a0a0a 0%,#2a1616 50%,#0f0f0f 100%)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 30%,rgba(200,16,46,.35) 0%,transparent 45%),radial-gradient(ellipse at 80% 70%,rgba(212,175,55,.25) 0%,transparent 45%);animation:bgMove 15s ease-in-out infinite;z-index:1}
+@keyframes bgMove{0%,100%{transform:scale(1) rotate(0)}33%{transform:scale(1.2) rotate(2deg)}66%{transform:scale(1.1) rotate(-2deg)}}
+.hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);background-size:60px 60px;animation:gridMove 20s linear infinite;z-index:1}
+@keyframes gridMove{0%{background-position:0 0}100%{background-position:60px 60px}}
+.hero-monument{position:absolute;bottom:0;left:50%;transform:translateX(-50%);z-index:2;opacity:.12;font-size:30vw;line-height:1;color:var(--emas);pointer-events:none;user-select:none;animation:monumentPulse 4s ease-in-out infinite}
+@keyframes monumentPulse{0%,100%{opacity:.12}50%{opacity:.22}}
+.hero-content{position:relative;z-index:10;max-width:900px;padding:0 24px;animation:fadeInUp 1.2s ease-out}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(212,175,55,.15);border:1px solid var(--emas);color:var(--emas);padding:8px 20px;border-radius:50px;font-size:.8rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-bottom:24px}
+.hero h1{font-size:clamp(2.2rem,6vw,4.5rem);color:#fff;margin-bottom:20px;font-weight:900;text-shadow:0 4px 30px rgba(0,0,0,.5)}
+.hero h1 .highlight{color:var(--emas);display:block;font-size:.6em;margin-top:10px;font-weight:600;letter-spacing:3px}
+.hero p{color:rgba(255,255,255,.85);font-size:clamp(.95rem,2vw,1.15rem);max-width:650px;margin:0 auto 36px;font-weight:300}
+.hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:50px;font-size:.95rem;font-weight:600;cursor:pointer;border:2px solid transparent;transition:var(--transisi);font-family:'Poppins',sans-serif}
+.btn-primary{background:var(--merah);color:#fff;border-color:var(--merah)}
+.btn-primary:hover{background:var(--merah-gelap);transform:translateY(-3px);box-shadow:0 12px 30px rgba(200,16,46,.4)}
+.btn-outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
+.btn-outline:hover{background:#fff;color:#0f0f0f;border-color:#fff;transform:translateY(-3px)}
+
+/* ===== SECTION UMUM ===== */
+section{padding:100px 0;position:relative}
+.section-header{text-align:center;max-width:700px;margin:0 auto 60px}
+.section-tag{display:inline-block;color:var(--merah);font-size:.8rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-size:clamp(1.8rem,4vw,2.8rem);color:#1a1a1a;margin-bottom:16px;font-weight:700}
+.section-desc{color:var(--abu);font-size:1rem;line-height:1.8}
+
+/* ===== DASHBOARD ===== */
+.dashboard{background:linear-gradient(135deg,#f5f5f5,#fff);padding:80px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat-card{background:#fff;border-radius:20px;padding:32px 24px;text-align:center;box-shadow:0 6px 25px rgba(0,0,0,.06);border-top:4px solid var(--merah);transition:var(--transisi)}
+.stat-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,.12);border-top-color:var(--emas)}
+.stat-card .stat-icon-big{font-size:2rem;margin-bottom:12px;display:block}
+.stat-card .stat-num{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--merah);line-height:1;margin-bottom:8px}
+.stat-card .stat-label{font-size:.85rem;color:var(--abu);font-weight:500;line-height:1.4}
+
+/* ===== PROFIL ===== */
+.tentang{background:#fff}
+.video-wrapper{position:relative;max-width:900px;margin:0 auto;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);background:#000;aspect-ratio:16/9}
+.video-wrapper iframe{width:100%;height:100%;border:none;display:block}
+.video-info{text-align:center;margin-top:32px}
+.video-info h3{font-size:1.5rem;color:#1a1a1a;margin-bottom:12px}
+.video-info p{color:var(--abu);max-width:700px;margin:0 auto}
+
+/* ===== DENAH ===== */
+.denah{background:linear-gradient(135deg,#0f0f0f 0%,#1e1e1e 100%);color:#fff}
+.denah .section-title{color:#fff}
+.denah .section-desc{color:rgba(255,255,255,.7)}
+.denah-controls{display:flex;justify-content:center;gap:12px;margin-bottom:32px;flex-wrap:wrap}
+.btn-toggle-all{padding:12px 28px;background:var(--emas);color:#0f0f0f;border:none;border-radius:50px;font-weight:600;font-size:.9rem;cursor:pointer;transition:var(--transisi);font-family:inherit}
+.btn-toggle-all:hover{background:#fff;transform:translateY(-2px)}
+.blocks-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.block-card{background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.25);border-radius:16px;overflow:hidden;transition:var(--transisi)}
+.block-card:hover{border-color:var(--emas)}
+.block-header{padding:20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(200,16,46,.15);user-select:none}
+.block-header-left{display:flex;align-items:center;gap:12px}
+.block-letter{width:44px;height:44px;background:var(--merah);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:1.3rem;color:#fff;flex-shrink:0;border:2px solid var(--emas)}
+.block-title{font-weight:600;font-size:1rem;color:#fff}
+.block-count{font-size:.78rem;color:var(--emas-muda);margin-top:2px}
+.block-toggle{width:30px;height:30px;background:rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--emas);transition:transform .3s}
+.block-card.open .block-toggle{transform:rotate(180deg);background:var(--emas);color:#0f0f0f}
+.block-body{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.block-card.open .block-body{max-height:1200px}
+.block-body-inner{padding:20px;border-top:1px solid rgba(212,175,55,.2)}
+.plot-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:16px}
+.plot{aspect-ratio:1;background:rgba(212,175,55,.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--emas);transition:var(--transisi);cursor:pointer;border:1px solid rgba(212,175,55,.4)}
+.plot:hover{background:var(--emas);color:#0f0f0f;transform:scale(1.1);z-index:2}
+.plot-info{padding:14px;background:rgba(0,0,0,.3);border-radius:10px;margin-top:12px;display:none}
+.plot-info.active{display:block}
+.plot-info strong{color:var(--emas);display:block;margin-bottom:6px;font-size:.9rem}
+.plot-info span{font-size:.8rem;color:rgba(255,255,255,.75);display:block;margin-bottom:3px}
+
+/* ===== LAYANAN (Link Redirect) ===== */
+.layanan{background:#f5f5f5}
+.layanan-intro{text-align:center;max-width:800px;margin:0 auto 50px;padding:24px;background:#fff;border-radius:16px;border-left:4px solid var(--emas);box-shadow:0 4px 20px rgba(0,0,0,.05)}
+.layanan-intro p{color:#333;font-size:.95rem}
+.layanan-intro strong{color:var(--merah)}
+.layanan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px}
+.layanan-card{background:#fff;border-radius:20px;padding:36px 28px;cursor:pointer;transition:var(--transisi);border:2px solid transparent;position:relative;overflow:hidden;text-align:center;display:block}
+.layanan-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:5px;background:linear-gradient(90deg,var(--merah),var(--emas));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.layanan-card:hover{border-color:var(--merah);transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,.12)}
+.layanan-card:hover::before{transform:scaleX(1)}
+.layanan-icon{width:80px;height:80px;margin:0 auto 20px;background:linear-gradient(135deg,var(--merah),var(--merah-gelap));border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;transition:var(--transisi)}
+.layanan-card:hover .layanan-icon{transform:rotate(-8deg) scale(1.1);background:linear-gradient(135deg,var(--emas),#b8932e)}
+.layanan-card h4{font-size:1.2rem;margin-bottom:12px;color:#1a1a1a}
+.layanan-card p{font-size:.88rem;color:var(--abu);line-height:1.7;margin-bottom:20px}
+.layanan-btn{display:inline-block;padding:10px 24px;background:var(--merah);color:#fff;border-radius:50px;font-size:.85rem;font-weight:600;transition:var(--transisi)}
+.layanan-card:hover .layanan-btn{background:var(--merah-gelap);transform:scale(1.05)}
+
+/* ===== KEGIATAN TMP (Galeri Video) ===== */
+.kegiatan{background:#fff;padding:100px 0}
+.kegiatan-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-top:20px}
+.kegiatan-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08);transition:var(--transisi);border:1px solid #eee}
+.kegiatan-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.15)}
+.kegiatan-video{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden}
+.kegiatan-video iframe{width:100%;height:100%;border:none;display:block}
+.kegiatan-body{padding:24px 28px}
+.kegiatan-tag{display:inline-block;background:rgba(200,16,46,.1);color:var(--merah);font-size:.75rem;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:12px;letter-spacing:1px;text-transform:uppercase}
+.kegiatan-body h4{font-size:1.2rem;margin-bottom:8px;color:#1a1a1a}
+.kegiatan-body p{font-size:.9rem;color:var(--abu);line-height:1.7}
+
+/* ===== KONTAK ===== */
+.kontak{background:linear-gradient(135deg,#0f0f0f,#1e1e1e);color:#fff;text-align:center}
+.kontak .section-title{color:#fff}
+.kontak .section-desc{color:rgba(255,255,255,.7)}
+.kontak-card{max-width:600px;margin:0 auto;background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.3);border-radius:24px;padding:48px 32px}
+.kontak-avatar{width:90px;height:90px;background:linear-gradient(135deg,var(--merah),var(--emas));border-radius:50%;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;animation:floatBadge 3s ease-in-out infinite}
+@keyframes floatBadge{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.kontak-card h3{font-size:1.6rem;margin-bottom:6px;color:#fff}
+.kontak-card .role{color:var(--emas);font-size:.9rem;margin-bottom:24px}
+.kontak-phone{display:inline-flex;align-items:center;gap:12px;padding:14px 28px;background:var(--emas);color:#0f0f0f;border-radius:50px;font-size:1.1rem;font-weight:600;transition:var(--transisi)}
+.kontak-phone:hover{background:#fff;transform:translateY(-3px)}
+.kontak-desc{color:rgba(255,255,255,.7);font-size:.9rem;margin-top:20px;line-height:1.8}
+
+/* ===== FOOTER ===== */
+footer{background:#0a0a0a;color:rgba(255,255,255,.8);padding:60px 0 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
+.footer-brand p{font-size:.9rem;line-height:1.8;color:rgba(255,255,255,.6);max-width:380px;margin-top:16px}
+.footer-col h5{font-size:.95rem;color:var(--emas);margin-bottom:20px;font-weight:600}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col ul li a{font-size:.88rem;color:rgba(255,255,255,.6);transition:var(--transisi)}
+.footer-col ul li a:hover{color:var(--emas)}
+.footer-bottom{padding:24px 0;text-align:center;font-size:.8rem;color:rgba(255,255,255,.4)}
+.footer-bottom span{color:var(--emas)}
+
+.back-to-top{position:fixed;bottom:30px;right:30px;width:50px;height:50px;background:var(--merah);color:#fff;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;opacity:0;visibility:hidden;transition:var(--transisi);z-index:997;box-shadow:0 8px 25px rgba(200,16,46,.5)}
+.back-to-top.visible{opacity:1;visibility:visible}
+.back-to-top:hover{background:var(--merah-gelap);transform:translateY(-3px)}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ===== RESPONSIF ===== */
+@media(max-width:1024px){.stats-grid{grid-template-columns:repeat(2,1fr)}.layanan-grid{grid-template-columns:1fr;max-width:500px;margin:0 auto}.blocks-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.hamburger{display:flex}.nav-links{position:fixed;top:0;right:-100%;width:80%;max-width:320px;height:100vh;background:rgba(15,15,15,.98);flex-direction:column;justify-content:center;align-items:center;gap:8px;transition:right .4s;padding:40px 20px}.nav-links.active{right:0}.nav-links a{font-size:1.1rem;padding:12px 20px;width:100%;text-align:center}section{padding:70px 0}.footer-grid{grid-template-columns:1fr}.blocks-grid{grid-template-columns:1fr}.kegiatan-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.hero-buttons{flex-direction:column}.btn{width:100%;justify-content:center}.stats-grid{grid-template-columns:1fr}.plot-grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="#home" class="nav-logo"><div class="logo-icon">★</div><div>TMP Kesenden<small>Cirebon</small></div></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Beranda</a></li>
+      <li><a href="#dashboard">Dashboard</a></li>
+      <li><a href="#profil">Profil</a></li>
+      <li><a href="#denah">Denah</a></li>
+      <li><a href="#kegiatan">Kegiatan</a></li>
+      <li><a href="#layanan">Layanan</a></li>
+      <li><a href="#kontak" class="nav-cta">Kontak</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="home">
+  <div class="hero-monument">★</div>
+  <div class="hero-content">
+    <div class="hero-badge">★ Taman Makam Pahlawan</div>
+    <h1>TMP Kesenden<span class="highlight">Kota Cirebon</span></h1>
+    <p>Mengenang jasa para pahlawan bangsa yang telah berkorban demi kemerdekaan dan kejayaan Indonesia.</p>
+    <div class="hero-buttons">
+      <a href="#denah" class="btn btn-primary">Lihat Denah Makam →</a>
+      <a href="#kegiatan" class="btn btn-outline">Lihat Kegiatan</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== DASHBOARD ===== -->
+<section class="dashboard" id="dashboard">
+  <div class="container">
+    <div class="section-header reveal"><span class="section-tag">Dashboard</span><h2 class="section-title">TMP Kesenden dalam Angka</h2><p class="section-desc">Data ringkas Taman Makam Pahlawan Kesenden, Kota Cirebon.</p></div>
+    <div class="stats-grid">
+      <div class="stat-card reveal"><span class="stat-icon-big">⭐</span><div class="stat-num">534</div><div class="stat-label">Nama penghuni tercatat di UPT TMP per 2020</div></div>
+      <div class="stat-card reveal"><span class="stat-icon-big">🗺️</span><div class="stat-num">8</div><div class="stat-label">Blok makam: A–E, Budha, Kristen, dan Bahagia</div></div>
+      <div class="stat-card reveal"><span class="stat-icon-big">🎖️</span><div class="stat-num">2</div><div class="stat-label">Upacara besar tiap tahun: 17 Agustus & 10 November</div></div>
+      <div class="stat-card reveal"><span class="stat-icon-big">🕊️</span><div class="stat-num">1974</div><div class="stat-label">Tahun juru pelihara Nuryayi mulai merawat makam</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROFIL VIDEO ===== -->
+<section class="tentang" id="profil">
+  <div class="container">
+    <div class="section-header reveal"><span class="section-tag">Profil TMP</span><h2 class="section-title">Video Profil TMP Kesenden</h2><p class="section-desc">Saksikan dokumentasi dan profil Taman Makam Pahlawan Kesenden, Kota Cirebon.</p></div>
+    <div class="video-wrapper reveal">
+      <iframe src="https://drive.google.com/file/d/1xBddpoT75oqlDgEk08GkRq1c7tu0BpPl/preview" allow="autoplay; fullscreen" allowfullscreen title="Video Profil TMP Kesenden"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DENAH ===== -->
+<section class="denah" id="denah">
+  <div class="container">
+    <div class="section-header reveal"><span class="section-tag" style="color:var(--emas)">Denah Nisan</span><h2 class="section-title">534 Penghuni • 8 Blok</h2><p class="section-desc">Klik blok untuk membuka/menutup denah per blok. Klik nisan untuk melihat informasi almarhum.</p></div>
+    <div class="denah-controls">
+      <button class="btn-toggle-all" id="toggleAll">📂 Buka Semua Blok</button>
+      <button class="btn-toggle-all" id="closeAll">📁 Tutup Semua Blok</button>
+    </div>
+    <div class="blocks-grid" id="blocksGrid"></div>
+  </div>
+</section>
+
+<!-- ===== KEGIATAN TMP (Galeri Video 2 Kolom) ===== -->
+<section class="kegiatan" id="kegiatan">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">Kegiatan TMP</span>
+      <h2 class="section-title">Dokumentasi Kegiatan</h2>
+      <p class="section-desc">Saksikan dokumentasi kegiatan yang diselenggarakan di TMP Kesenden. Video dapat diputar langsung di halaman ini.</p>
+    </div>
+    <div class="kegiatan-grid">
+      <!-- Video 1: Renungan Suci -->
+      <div class="kegiatan-card reveal">
+        <div class="kegiatan-video">
+          <iframe
+            src="https://drive.google.com/file/d/1pzfa0JgnfjFvjGibCpMfoAiKyfCzsxx9/preview"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            title="Kegiatan Renungan Suci">
+          </iframe>
+        </div>
+        <div class="kegiatan-body">
+          <span class="kegiatan-tag">🕯️ Renungan Suci</span>
+          <h4>Kegiatan Renungan Suci</h4>
+          <p>Dokumentasi upacara renungan suci sebagai bentuk penghormatan kepada para pahlawan yang telah gugur.</p>
+        </div>
+      </div>
+
+      <!-- Video 2: Sosialisasi Nilai Kepahlawanan -->
+      <div class="kegiatan-card reveal">
+        <div class="kegiatan-video">
+          <iframe
+            src="https://drive.google.com/file/d/1PQT--lowaqiG2QSuBuoMv9KL1gCmhavQ/preview"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            title="Kegiatan Sosialisasi Nilai-Nilai Kepahlawanan">
+          </iframe>
+        </div>
+        <div class="kegiatan-body">
+          <span class="kegiatan-tag">🎖️ Sosialisasi</span>
+          <h4>Sosialisasi Nilai-Nilai Kepahlawanan</h4>
+          <p>Kegiatan edukasi untuk menanamkan nilai-nilai kepahlawanan kepada generasi muda.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LAYANAN (Klik = Redirect ke Google Form) ===== -->
+<section class="layanan" id="layanan">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">Layanan</span>
+      <h2 class="section-title">Pilih Layanan</h2>
+      <p class="section-desc">Klik salah satu layanan di bawah untuk mengisi formulir pengajuan. Anda akan diarahkan ke halaman formulir.</p>
+    </div>
+    <div class="layanan-intro reveal">
+      <p>📋 <strong>Cara Pengajuan:</strong> Klik salah satu layanan → Anda akan diarahkan ke formulir → Isi dan kirim. Pengajuan Anda tersimpan dan Dinas Sosial menghubungi untuk konfirmasi.</p>
+    </div>
+    <div class="layanan-grid">
+      <a class="layanan-card reveal" data-layanan="ziarah" href="#" target="_blank" rel="noopener">
+        <div class="layanan-icon">🚌</div>
+        <h4>Ijin Ziarah Rombongan</h4>
+        <p>Pengajuan izin kunjungan ziarah secara berkelompok/rombongan ke TMP Kesenden.</p>
+        <span class="layanan-btn">Pilih Layanan →</span>
+      </a>
+      <a class="layanan-card reveal" data-layanan="renungan" href="#" target="_blank" rel="noopener">
+        <div class="layanan-icon">🕯️</div>
+        <h4>Ijin Renungan Suci</h4>
+        <p>Pengajuan izin kegiatan renungan suci untuk mengenang jasa para pahlawan.</p>
+        <span class="layanan-btn">Pilih Layanan →</span>
+      </a>
+      <a class="layanan-card reveal" data-layanan="tabur" href="#" target="_blank" rel="noopener">
+        <div class="layanan-icon">🌸</div>
+        <h4>Ijin Pendaftaran Tabur Bunga</h4>
+        <p>Pendaftaran kegiatan tabur bunga sebagai bentuk penghormatan kepada pahlawan.</p>
+        <span class="layanan-btn">Pilih Layanan →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KONTAK ===== -->
+<section class="kontak" id="kontak">
+  <div class="container">
+    <div class="section-header reveal"><span class="section-tag" style="color:var(--emas)">Kontak</span><h2 class="section-title">Hubungi Petugas TMP</h2></div>
+    <div class="kontak-card reveal">
+      <div class="kontak-avatar">👨‍💼</div>
+      <h3>Jayani</h3>
+      <div class="role">Petugas TMP Kesenden</div>
+      <a href="https://wa.me/628987361222" target="_blank" rel="noopener" class="kontak-phone">📞 62 898-7361-222</a>
+      <p class="kontak-desc">Senin – Minggu, 07.00 – 17.00 WIB<br>Hubungi via WhatsApp untuk respon cepat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="color:#fff"><div class="logo-icon">★</div><div>TMP Kesenden<small style="display:block">Cirebon</small></div></div>
+        <p>Taman Makam Pahlawan Kesenden — tempat penghormatan terakhir bagi para pahlawan bangsa di Kota Cirebon. Mari menjaga kelestarian dan meneladani semangat perjuangan mereka.</p>
+      </div>
+      <div class="footer-col"><h5>Navigasi</h5><ul><li><a href="#dashboard">→ Dashboard</a></li><li><a href="#profil">→ Profil</a></li><li><a href="#denah">→ Denah</a></li><li><a href="#kegiatan">→ Kegiatan</a></li><li><a href="#layanan">→ Layanan</a></li></ul></div>
+      <div class="footer-col"><h5>Kontak</h5><ul><li><a href="https://wa.me/628987361222">📞 Jayani - Petugas TMP</a></li><li><a href="#">📍 Kesenden, Cirebon</a></li><li><a href="#">🕐 07.00 – 17.00 WIB</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 TMP Kesenden — Kota Cirebon. Dibuat dengan <span>♥</span> untuk para pahlawan bangsa.</p></div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop">↑</button>
+
+<script>
+/* ==========================================
+   ⚙️ KONFIGURASI LINK LAYANAN
+   Ganti URL di sini dengan link Google Form Anda
+   ========================================== */
+const LAYANAN_LINKS = {
+  ziarah:   'https://script.google.com/macros/s/AKfycbxRHPa7zqmB9CWUnRfZme6Eu7vznJw7cejzBB_NWWaGi3u1ZSXFoEXuekk9-RfFt4a9/exec',
+  renungan: 'https://script.google.com/macros/s/AKfycbxRHPa7zqmB9CWUnRfZme6Eu7vznJw7cejzBB_NWWaGi3u1ZSXFoEXuekk9-RfFt4a9/exec',
+  tabur:    'https://script.google.com/macros/s/AKfycbxRHPa7zqmB9CWUnRfZme6Eu7vznJw7cejzBB_NWWaGi3u1ZSXFoEXuekk9-RfFt4a9/exec'
+};
+
+// Pasang URL ke setiap kartu layanan
+document.querySelectorAll('.layanan-card').forEach(card => {
+  const key = card.dataset.layanan;
+  if (LAYANAN_LINKS[key]) {
+    card.setAttribute('href', LAYANAN_LINKS[key]);
+  }
+});
+
+/* ============ DENAH ============ */
+const blokData = {
+  'A': { nama: 'Blok A', jumlah: 87, warna: '#C8102E' },
+  'B': { nama: 'Blok B', jumlah: 78, warna: '#9B0C23' },
+  'C': { nama: 'Blok C', jumlah: 92, warna: '#7A0919' },
+  'D': { nama: 'Blok D', jumlah: 65, warna: '#D4AF37' },
+  'E': { nama: 'Blok E', jumlah: 71, warna: '#B8932E' },
+  'Budha': { nama: 'Blok Budha', jumlah: 42, warna: '#8B5A00' },
+  'Kristen': { nama: 'Blok Kristen', jumlah: 58, warna: '#5D4037' },
+  'Bahagia': { nama: 'Blok Bahagia', jumlah: 41, warna: '#4E342E' }
+};
+
+function renderDenah() {
+  const grid = document.getElementById('blocksGrid');
+  let html = '', counter = 1;
+  Object.entries(blokData).forEach(([key, data]) => {
+    const plots = generatePlots(key, data.jumlah, counter);
+    counter += data.jumlah;
+    html += `<div class="block-card">
+      <div class="block-header">
+        <div class="block-header-left">
+          <div class="block-letter" style="background:${data.warna}">${key.charAt(0)}</div>
+          <div><div class="block-title">${data.nama}</div><div class="block-count">${data.jumlah} nisan</div></div>
+        </div>
+        <div class="block-toggle">▾</div>
+      </div>
+      <div class="block-body"><div class="block-body-inner">
+        <div class="plot-grid">${plots}</div>
+        <div class="plot-info"></div>
+      </div></div>
+    </div>`;
+  });
+  grid.innerHTML = html;
+  grid.querySelectorAll('.block-header').forEach(h => h.addEventListener('click', () => h.closest('.block-card').classList.toggle('open')));
+  grid.querySelectorAll('.plot').forEach(plot => plot.addEventListener('click', e => {
+    e.stopPropagation();
+    const infoDiv = plot.closest('.block-body-inner').querySelector('.plot-info');
+    infoDiv.classList.add('active');
+    infoDiv.innerHTML = `<strong>Nisan No. ${plot.dataset.nomor}</strong><span>Blok: ${plot.dataset.blok}</span><span>Nama: ${plot.dataset.nama}</span><span>Status: Terisi</span>`;
+    plot.closest('.plot-grid').querySelectorAll('.plot').forEach(p => p.style.outline = '');
+    plot.style.outline = '2px solid #D4AF37';
+  }));
+}
+
+function generatePlots(blok, jumlah, startIdx) {
+  let html = '';
+  for (let i = 1; i <= jumlah; i++) {
+    const namaPahlawan = generateNama(blok, i);
+    html += `<div class="plot" data-nomor="${i}" data-blok="Blok ${blok}" data-nama="${namaPahlawan}" title="Nisan ${i} - ${namaPahlawan}">${i}</div>`;
+  }
+  return html;
+}
+
+function generateNama(blok, idx) {
+  const prefix = ['Sersan','Letnan','Kapten','Prajurit','Pejuang','Veteran','Pahlawan'];
+  const nama = ['Sutomo','Sudirman','Ahmad Yani','Pangeran','Diponegoro','Pattimura','Hasanuddin','Soekarno','Hatta','Tan Malaka'];
+  return `${prefix[idx % prefix.length]} ${nama[(idx * 7) % nama.length]} ${idx}`;
+}
+
+document.getElementById('toggleAll').addEventListener('click', () => document.querySelectorAll('.block-card').forEach(c => c.classList.add('open')));
+document.getElementById('closeAll').addEventListener('click', () => document.querySelectorAll('.block-card').forEach(c => c.classList.remove('open')));
+
+/* ============ UI UTIL ============ */
+const navbar = document.getElementById('navbar');
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 80);
+  backToTop.classList.toggle('visible', window.scrollY > 500);
+});
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navLinks.classList.toggle('active'); });
+document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => {
+  hamburger.classList.remove('active');
+  navLinks.classList.remove('active');
+}));
+backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Active nav
+const sectionsAll = document.querySelectorAll('section[id], header[id]');
+const navItems = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+window.addEventListener('scroll', () => {
+  let current = '';
+  const pos = window.scrollY + 150;
+  sectionsAll.forEach(s => { if (pos >= s.offsetTop) current = s.id; });
+  navItems.forEach(l => {
+    l.classList.remove('active');
+    if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+  });
+});
+
+renderDenah();
+</script>
+</body>
+</html>

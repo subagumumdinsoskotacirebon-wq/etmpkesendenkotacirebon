@@ -301,6 +301,35 @@ nav a.active{color:var(--fg);background:var(--surface);box-shadow:inset 0 -2px 0
 .wa-fab::before{content:"";position:absolute;inset:0;border-radius:inherit;background:#1fa855;z-index:-1;animation:waPing 2.4s ease-out infinite}
 @keyframes waPing{from{transform:scale(1);opacity:.55}to{transform:scale(1.5);opacity:0}}
 @media(prefers-reduced-motion:reduce){.slide:first-child{opacity:1}.js .rv{opacity:1;transform:none}}
+
+/* ===== nisan bintang & virtual tour ===== */
+.stones button[data-star]{border-radius:0;aspect-ratio:1/1;align-self:center;background:#ffd24a;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.stones button[data-star].hit{background:#7fd6ff;outline:0}
+.stones button[data-star].sel{background:#fff3b0;transform:scale(1.35)}
+.nm .stx{color:#ffd24a;margin-right:4px}
+td .stx{color:#d9a400;margin-right:4px}
+.tour{display:grid;gap:14px}
+.tstage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#09111f;border:1px solid var(--line);touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.tstage.drag{cursor:grabbing}
+.tpan{position:absolute;top:0;bottom:0;left:0;background-size:cover;background-position:center;will-change:transform;transition:opacity .5s}
+.tpan.fade{opacity:0}
+.tcap{position:absolute;left:0;right:0;bottom:0;padding:44px 18px 16px;background:linear-gradient(0deg,rgba(9,17,31,.85),transparent);color:#f6efe6;pointer-events:none}
+.tcap b{display:block;font:700 1.1rem var(--f-display)}
+.tcap span{font-size:.9rem;opacity:.85}
+.thint{position:absolute;top:12px;left:12px;background:rgba(9,17,31,.6);color:#f6efe6;font:500 .75rem var(--f-mono);padding:6px 10px;border-radius:999px;pointer-events:none;letter-spacing:.04em}
+.tnav{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:0;background:rgba(9,17,31,.55);color:#fff;font-size:1.3rem;cursor:pointer;z-index:2;backdrop-filter:blur(4px)}
+.tnav:hover{background:rgba(179,38,44,.85)}
+.tnav.l{left:10px}.tnav.r{right:10px}
+.tstops{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tstop{display:grid;gap:8px;padding:8px;border:1px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;text-align:left;font:inherit;color:inherit;transition:border-color .2s,transform .2s}
+.tstop:hover{transform:translateY(-3px)}
+.tstop[aria-current="true"]{border-color:var(--flag);box-shadow:0 0 0 2px rgba(179,38,44,.2)}
+.tstop i{display:block;aspect-ratio:16/9;border-radius:8px;background-size:cover;background-position:center}
+.tstop b{font-size:.92rem}
+.tstop small{color:var(--muted)}
+.tbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.tfr{width:100%;aspect-ratio:16/9;border:0;border-radius:16px}
+@media(max-width:700px){.tstage{aspect-ratio:4/3}.tstops{grid-template-columns:minmax(0,1fr)}.tstop{grid-template-columns:110px minmax(0,1fr);align-items:center}.tnav{width:38px;height:38px}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -327,7 +356,7 @@ nav a.active{color:var(--fg);background:var(--surface);box-shadow:inset 0 -2px 0
 <header class="bar"><div class="wrap">
   <a class="brand" href="#atas"><svg class="bicon" viewBox="0 0 120 70" aria-hidden="true"><use href="#mmIcon"/></svg><span class="bt">E-TMP<span>.</span>Cirebon</span></a>
   <nav aria-label="Menu utama">
-    <a href="#profil">Profil TMP</a><a href="#kegiatan">Kegiatan</a><a href="#pahlawan">Data Pahlawan</a><a href="#layanan">Layanan</a><a href="#agenda">Agenda</a><a href="#kunjungan">Ziarah</a><a href="#rekap" id="nav-rekap" hidden>Rekap</a>
+    <a href="#profil">Profil TMP</a><a href="#kegiatan">Kegiatan</a><a href="#pahlawan">Data Pahlawan</a><a href="#layanan">Layanan</a><a href="#agenda">Agenda</a><a href="#kunjungan">Ziarah</a><a href="#rekap" id="nav-rekap" hidden>Rekap</a><a href="#tour">Virtual Tour</a>
   </nav>
   <button class="theme" id="theme" aria-label="Ganti tema terang/gelap">◐</button>
 </div></header>
@@ -466,6 +495,24 @@ nav a.active{color:var(--fg);background:var(--surface);box-shadow:inset 0 -2px 0
   </div>
 </div></section>
 
+<section class="blk alt" id="tour">
+  <svg class="mm" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mmL)"/></svg>
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Virtual Tour</span><h2>Jelajahi TMP Kesenden dari mana saja</h2><p>Geser foto untuk melihat sekeliling, atau pilih titik kunjungan di bawahnya.</p></div>
+    <div class="tour" id="tour-box">
+      <div class="tstage" id="tstage" aria-roledescription="penampil foto" aria-label="Virtual tour TMP Kesenden">
+        <div class="tpan" id="tpan"></div>
+        <span class="thint">&#8596; Geser untuk melihat sekeliling</span>
+        <button type="button" class="tnav l" id="tprev" aria-label="Titik sebelumnya">&#8249;</button>
+        <button type="button" class="tnav r" id="tnext" aria-label="Titik berikutnya">&#8250;</button>
+        <div class="tcap"><b id="tcap-t"></b><span id="tcap-d"></span></div>
+      </div>
+      <div class="tbar"><button type="button" class="btn sm" id="tplay">Mulai tur otomatis</button></div>
+      <div class="tstops" id="tstops"></div>
+    </div>
+  </div>
+</section>
+
 <section class="blk alt" id="rekap" hidden>
   <svg class="mm" aria-hidden="true"><rect width="100%" height="100%" fill="url(#mmL)"/></svg>
   <div class="wrap">
@@ -496,7 +543,7 @@ nav a.active{color:var(--fg);background:var(--surface);box-shadow:inset 0 -2px 0
   <b><svg class="bicon" viewBox="0 0 120 70" aria-hidden="true"><use href="#mmIcon"/></svg>E-TMP Kesenden · Kota Cirebon</b>
   <span class="mmnote">Motif Mega Mendung, warisan budaya Cirebon.</span>
   <span>Petugas TMP: Jayani · <a href="https://wa.me/628987361222?text=Selamat%20hari%2C%20Bapak%2FIbu%20Jayani.%20Saya%20ingin%20bertanya%20tentang%20TMP%20Kesenden%20Cirebon." target="_blank" rel="noopener noreferrer">WhatsApp +62 898-7361-222</a></span>
-  <span>Nama penghuni bersumber dari daftar UPT Taman Makam Pahlawan Kota Cirebon per Januari 2020 dan perlu diperbarui berkala. Nama juru pelihara bersumber dari IT Dinsos (2026).</span>
+  <span>Nama penghuni bersumber dari daftar UPT Taman Makam Pahlawan Kota Cirebon per Januari 2020 dan perlu diperbarui berkala. Nama juru pelihara bersumber dari TIMES Indonesia (2020).</span>
 </div></footer>
 
 <script>
@@ -523,6 +570,9 @@ nav a.active{color:var(--fg);background:var(--surface);box-shadow:inset 0 -2px 0
     return{i:i,blok:r[0],no:r[1],kode:PFX[r[0]]+'-'+String(r[1]).padStart(3,'0'),nama:r[2],pangkat:r[3],jabatan:r[4],kesatuan:r[5],
       tgl:r[6]||r[7],kind:r[6]?'g':(r[7]?'w':'u'),ket:r[8],tak:/tak dikenal/i.test(r[2])};
   });
+  /* nisan bertanda bintang dan keterangan tambahan */
+  var EXTRA={'A-037':{pangkat:'Kapten (Anumerta)',lahir:'8 Agustus 1923, di Matraman Gang II, Jakarta'},'B-090':{}};
+  data.forEach(function(d){var x=EXTRA[d.kode];if(x){d.star=true;if(x.pangkat)d.pangkat=x.pangkat;if(x.lahir)d.lahir=x.lahir}});
 
   /* akordeon */
   function accordion(btn,panel,openText,closeText,open){
@@ -556,7 +606,7 @@ nav a.active{color:var(--fg);background:var(--surface);box-shadow:inset 0 -2px 0
       var items=data.filter(function(d){return d.blok===b[0]});
       h+='<div class="grp"><div class="grp-h"><span>'+b[1]+'</span><span>'+items.length+' makam</span></div><div class="stones">';
       items.forEach(function(d){
-        h+='<button type="button" tabindex="-1" data-i="'+d.i+'" data-s="'+d.kind+'"'+(firstPaint&&k<120?' style="animation-delay:'+(k*8)+'ms"':'')+' title="'+esc(d.nama)+'" aria-label="'+esc(d.kode+' '+d.nama)+'"></button>';k++;
+        h+='<button type="button" tabindex="-1" data-i="'+d.i+'" data-s="'+d.kind+'"'+(d.star?' data-star="1"':'')+(firstPaint&&k<120?' style="animation-delay:'+(k*8)+'ms"':'')+' title="'+esc(d.nama)+'" aria-label="'+esc(d.kode+' '+d.nama)+'"></button>';k++;
       });
       h+='</div></div>';
     });
@@ -573,11 +623,11 @@ nav a.active{color:var(--fg);background:var(--surface);box-shadow:inset 0 -2px 0
     var prev=st.querySelector('button.sel');if(prev)prev.classList.remove('sel');
     var el=st.querySelector('[data-i="'+i+'"]');
     if(el){el.classList.add('sel');if(!quiet)el.scrollIntoView({block:'nearest',inline:'nearest'})}
-    var info=line('Pangkat',d.pangkat)+line('Jabatan',d.jabatan)+line('Kesatuan',d.kesatuan)
+    var info=line('Pangkat',d.pangkat)+line('Lahir',d.lahir)+line('Jabatan',d.jabatan)+line('Kesatuan',d.kesatuan)
       +(d.tgl?'<span class="mt">'+KLBL[d.kind]+': '+esc(d.tgl)+'</span>':'')
       +line('Keterangan',d.ket?d.ket.charAt(0).toUpperCase()+d.ket.slice(1):'');
     if(!info)info='<span class="mt">Pangkat dan tanggal belum tercatat di daftar.</span>';
-    detail.innerHTML='<span class="nm">'+esc(d.nama)+'</span><span class="mt">Makam '+d.kode+' · Blok '+d.blok+' · nomor '+d.no+'</span>'+info;
+    detail.innerHTML='<span class="nm">'+(d.star?'<span class="stx">&#9733;</span>':'')+esc(d.nama)+'</span><span class="mt">Makam '+d.kode+' · Blok '+d.blok+' · nomor '+d.no+'</span>'+info;
   }
   st.addEventListener('click',function(e){var b=e.target.closest('button');if(b)selectNisan(+b.dataset.i)});
   bch.addEventListener('click',function(e){var b=e.target.closest('button');if(b)setBlok(b.dataset.b)});
@@ -601,14 +651,14 @@ nav a.active{color:var(--fg);background:var(--surface);box-shadow:inset 0 -2px 0
       if(bv&&d.blok!==bv)return false;
       if(sv==='tak'){if(!d.tak)return false}else if(sv&&d.kind!==sv)return false;
       if(!k)return true;
-      return(d.nama+' '+d.pangkat+' '+d.jabatan+' '+d.kesatuan+' '+d.kode).toLowerCase().indexOf(k)>-1;
+      return(d.nama+' '+d.pangkat+' '+(d.lahir||'')+' '+d.jabatan+' '+d.kesatuan+' '+d.kode).toLowerCase().indexOf(k)>-1;
     });
     var pages=Math.max(1,Math.ceil(filtered.length/PER));if(page>pages)page=pages;
     var slice=filtered.slice((page-1)*PER,page*PER);
     $('rows').innerHTML=slice.map(function(d){
       var unit=[d.kesatuan,d.jabatan].filter(Boolean).join(' · ')||'—';
       var tg=d.tgl?'<span class="tag'+(d.kind==='g'?' v':'')+'">'+KLBL[d.kind]+'</span> '+esc(d.tgl):'<span class="tag">Belum tercatat</span>';
-      return'<tr><td class="m">'+d.kode+'</td><td>'+esc(d.nama)+'</td><td>'+(esc(d.pangkat)||'—')+'</td><td>'+esc(unit)+'</td><td class="m">'+tg+'</td><td>Blok '+d.blok+'</td><td><button class="btn ghost sm" data-see="'+d.i+'">Lihat nisan</button></td></tr>';
+      return'<tr><td class="m">'+d.kode+'</td><td>'+(d.star?'<span class="stx">&#9733;</span>':'')+esc(d.nama)+'</td><td>'+(esc(d.pangkat)||'—')+'</td><td>'+esc(unit)+'</td><td class="m">'+tg+'</td><td>Blok '+d.blok+'</td><td><button class="btn ghost sm" data-see="'+d.i+'">Lihat nisan</button></td></tr>';
     }).join('');
     $('empty').hidden=filtered.length>0;
     $('count').textContent=filtered.length?('Halaman '+page+' dari '+pages+' · '+filtered.length+' data'):'0 data';
@@ -851,7 +901,7 @@ nav a.active{color:var(--fg);background:var(--surface);box-shadow:inset 0 -2px 0
     }
     if('IntersectionObserver' in window){
       var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)setActive(e.target.id==='hero'?'':e.target.id)})},{rootMargin:'-45% 0px -50% 0px'});
-      ['hero','profil','kegiatan','pahlawan','layanan','agenda','kunjungan','rekap'].forEach(function(id){var t=$(id);if(t)so.observe(t)});
+      ['hero','profil','kegiatan','pahlawan','layanan','agenda','kunjungan','tour','rekap'].forEach(function(id){var t=$(id);if(t)so.observe(t)});
     }
     /* efek saat memilih menu */
     document.querySelectorAll('nav a[href^="#"],.cta a[href^="#"]').forEach(function(a){
@@ -861,6 +911,51 @@ nav a.active{color:var(--fg);background:var(--surface);box-shadow:inset 0 -2px 0
         setTimeout(function(){h.classList.remove('pop');void h.offsetWidth;h.classList.add('pop')},450);
       });
     });
+  })();
+
+  /* ===== virtual tour ===== */
+  (function(){
+    var TOUR_360='';/* isi dengan link tur 360 (misalnya Google Street View/Kuula) bila ada, otomatis tampil menggantikan penampil foto */
+    var box=$('tour-box');if(!box)return;
+    if(TOUR_360){box.innerHTML='<iframe class="tfr" src="'+TOUR_360+'" title="Virtual tour TMP Kesenden" allow="fullscreen; accelerometer; gyroscope" allowfullscreen loading="lazy"></iframe>';return}
+    var sl=document.querySelectorAll('.slide');
+    var STOPS=[
+      {t:'Gerbang Taman Makam Pahlawan',d:'Gerbang putih bertuliskan Taman Makam Pahlawan Kesenden dengan jalan masuk yang rindang.',n:'Titik 1'},
+      {t:'Tugu nama Kesenden Cirebon',d:'Papan nama batu dengan tulisan Taman Makam Pahlawan Kesenden Cirebon dan taman bunga di depannya.',n:'Titik 2'},
+      {t:'Pintu masuk area makam',d:'Tangga, pagar, dan tugu merah putih dengan karangan bunga di pintu masuk area makam.',n:'Titik 3'}
+    ];
+    STOPS.forEach(function(x,i){x.img=sl[i]?sl[i].style.backgroundImage:''});
+    var stage=$('tstage'),pan=$('tpan'),stopsEl=$('tstops'),capT=$('tcap-t'),capD=$('tcap-d'),play=$('tplay');
+    var cur=0,x=0,minX=0,dragging=false,sx=0,ox=0,auto=!reduce,dir=-1,timer=null,autoTour=false;
+    stopsEl.innerHTML=STOPS.map(function(c,i){return'<button type="button" class="tstop" data-i="'+i+'"><i style="background-image:'+c.img+'"></i><span><small>'+c.n+'</small><br><b>'+esc(c.t)+'</b></span></button>'}).join('');
+    function size(){var w=stage.clientWidth,f=w<700?2:1.5;pan.style.width=(w*f)+'px';minX=-(w*f-w);x=Math.max(minX,Math.min(0,x));pan.style.transform='translate3d('+x+'px,0,0)'}
+    function go(i,fromAuto){
+      cur=(i+STOPS.length)%STOPS.length;
+      pan.classList.add('fade');
+      setTimeout(function(){
+        pan.style.backgroundImage=STOPS[cur].img;size();x=minX/2;pan.style.transform='translate3d('+x+'px,0,0)';
+        capT.textContent=STOPS[cur].t;capD.textContent=STOPS[cur].d;
+        pan.classList.remove('fade');
+      },fromAuto===undefined?250:250);
+      [].forEach.call(stopsEl.children,function(b,k){b.setAttribute('aria-current',k===cur?'true':'false')});
+    }
+    function loop(){
+      if(auto&&!dragging&&minX<0){x+=dir*.25;if(x<=minX){x=minX;dir=1}else if(x>=0){x=0;dir=-1}pan.style.transform='translate3d('+x+'px,0,0)'}
+      requestAnimationFrame(loop);
+    }
+    stage.addEventListener('pointerdown',function(e){dragging=true;sx=e.clientX;ox=x;stage.classList.add('drag');try{stage.setPointerCapture(e.pointerId)}catch(_){}});
+    stage.addEventListener('pointermove',function(e){if(!dragging)return;x=Math.max(minX,Math.min(0,ox+(e.clientX-sx)));pan.style.transform='translate3d('+x+'px,0,0)'});
+    function up(){dragging=false;stage.classList.remove('drag')}
+    stage.addEventListener('pointerup',up);stage.addEventListener('pointercancel',up);
+    $('tprev').addEventListener('click',function(){go(cur-1)});
+    $('tnext').addEventListener('click',function(){go(cur+1)});
+    stopsEl.addEventListener('click',function(e){var b=e.target.closest('.tstop');if(b)go(+b.dataset.i)});
+    play.addEventListener('click',function(){
+      autoTour=!autoTour;play.textContent=autoTour?'Hentikan tur otomatis':'Mulai tur otomatis';
+      clearInterval(timer);if(autoTour)timer=setInterval(function(){go(cur+1,true)},7000);
+    });
+    addEventListener('resize',size);
+    go(0);size();if(!reduce)requestAnimationFrame(loop);
   })();
 
   /* tema */
